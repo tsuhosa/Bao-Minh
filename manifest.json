@@ -1,14 +1,16 @@
 {
   "name": "Tiệm Bánh Kẹo Bảo Minh",
   "short_name": "Bảo Minh",
+  "description": "Game quản lý tiệm bánh kẹo truyền thống Hà Nội",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff8e8",
-  "theme_color": "#c4622d",
+  "background_color": "#2b1b10",
+  "theme_color": "#4a2c1a",
   "lang": "vi",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
