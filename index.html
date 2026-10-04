@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Bảo Minh">
-<meta name="theme-color" content="#4a2c1a">
+<meta name="theme-color" content="#d4f0c4">
 <meta name="format-detection" content="telephone=no">
-<meta name="description" content="Game quản lý tiệm bánh kẹo truyền thống Hà Nội">
 <title>Tiệm Bánh Kẹo Bảo Minh</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -19,300 +18,596 @@
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-  background:#2b1b10;display:flex;justify-content:center;align-items:center;
-  color:#f5e6d3;touch-action:manipulation;
+  background:#f7fdf5;display:flex;justify-content:center;align-items:center;
+  color:#2d5016;touch-action:manipulation;
 }
 #game{
-  width:100%;max-width:480px;height:100dvh;max-height:860px;
-  background:#3d2b1a;border-radius:18px;
-  display:flex;flex-direction:column;overflow:hidden;position:relative;
-  border:2px solid #7a5a3a;
-  contain:layout style paint;
-  padding-top:env(safe-area-inset-top);
-  padding-bottom:env(safe-area-inset-bottom);
-  padding-left:env(safe-area-inset-left);
-  padding-right:env(safe-area-inset-right);
+  width:100%;max-width:480px;height:100dvh;max-height:900px;
+  background:#f7fdf5;display:flex;flex-direction:column;
+  overflow:hidden;position:relative;
+  box-shadow:0 0 40px rgba(120,180,100,.15);
 }
-.dienm{height:5px;flex-shrink:0;
-  background:repeating-linear-gradient(90deg,#c49a3c 0 6px,#8b6914 6px 12px,#dbb85c 12px 18px)}
 
+/* ========== HEADER ========== */
 #header{
-  background:linear-gradient(180deg,#5c3a1e,#4a2c1a);
-  padding:5px 8px 3px;display:flex;flex-wrap:wrap;align-items:center;
-  gap:3px 6px;border-bottom:2px solid #8b6914;flex-shrink:0;
+  background:linear-gradient(135deg,#d4f0c4 0%,#b8e6a8 100%);
+  padding:6px 12px;display:flex;flex-wrap:wrap;align-items:center;
+  gap:5px;flex-shrink:0;border-bottom:2px solid #a8d896;
 }
-.logo{font-size:15px;font-weight:800;color:#f5d78e;text-shadow:1px 1px 0 #1a0f07;
-  display:flex;align-items:center;gap:3px}
+.logo{
+  font-size:15px;font-weight:800;color:#2d5016;
+  display:flex;align-items:center;gap:5px;
+}
 .logo svg{width:20px;height:20px}
-.stat{background:#2b1b10;border:1.5px solid #8b6914;border-radius:8px;
-  padding:1px 7px;font-size:11px;font-weight:700;color:#f5d78e;white-space:nowrap}
-.stat span{color:#fff}
-#stats-row{display:flex;flex-wrap:wrap;gap:3px;width:100%;justify-content:space-between}
-#time-box{background:#1a0f07;border:1.5px solid #c49a3c;border-radius:8px;
-  padding:1px 7px;font-size:11px;font-weight:700;color:#f5d78e}
+#stats-row{display:flex;flex-wrap:wrap;gap:4px;width:100%;justify-content:space-between}
+.stat{
+  background:rgba(255,255,255,.75);border-radius:11px;
+  padding:2px 9px;font-size:11px;font-weight:700;color:#2d5016;
+  box-shadow:0 1px 3px rgba(120,180,100,.2);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:3px;
+}
+.stat b{color:#4a9e3f;font-weight:800}
+#time-box{
+  background:linear-gradient(135deg,#f5d78e,#e6c34d);
+  border-radius:11px;padding:2px 9px;font-size:11px;font-weight:800;
+  color:#7a5a1f;box-shadow:0 1px 3px rgba(180,140,60,.25);
+  display:inline-flex;align-items:center;gap:3px;
+}
 
-#scene{
-  flex:1;position:relative;overflow:hidden;min-height:0;
-  background:#4a3420;transition:background .3s;
+/* ========== KHU KHÁCH ========== */
+#customers-row{
+  flex-shrink:0;padding:8px 10px;
+  background:linear-gradient(180deg,#f0fae8,#e4f5d8);
+  border-bottom:2px solid #c8e8b8;
+  position:relative;
 }
-#scene::before{
-  content:'';position:absolute;inset:0;pointer-events:none;opacity:.1;
-  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='12' fill='none' stroke='%23c49a3c' stroke-width='.5'/%3E%3Ccircle cx='30' cy='30' r='6' fill='none' stroke='%23c49a3c' stroke-width='.5'/%3E%3C/svg%3E");
-  background-size:60px 60px;
+#tables{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
 }
-#tables{position:absolute;inset:6px;display:grid;
-  grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5px}
 .table{
-  background:rgba(90,60,35,.7);border:2px solid #8b6914;border-radius:12px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  aspect-ratio:1;background:rgba(255,255,255,.75);
+  border-radius:14px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   padding:4px;position:relative;overflow:hidden;cursor:pointer;
+  border:2px solid transparent;transition:all .15s;
+  box-shadow:0 2px 0 rgba(160,200,140,.35);
 }
-.table.active{background:rgba(139,105,20,.55);border-color:#f5d78e}
-.table .khach-icon{font-size:26px;line-height:1}
-.table .khach-name{font-size:10px;font-weight:700;color:#f5d78e;
-  text-shadow:1px 1px 0 #000;margin-top:2px}
+.table.active{
+  border-color:#7bc96f;background:#fff;
+  box-shadow:0 2px 0 #7bc96f,0 0 14px rgba(123,201,111,.5);
+  transform:translateY(-2px);
+}
+.table:active{transform:scale(.95)}
+.table .event-icon{
+  position:absolute;top:2px;left:2px;font-size:11px;
+  line-height:1;
+}
+.table .khach-icon{font-size:22px;line-height:1;filter:grayscale(.3)}
+.table.active .khach-icon,.table.has-customer .khach-icon{filter:none}
+.table .khach-name{
+  font-size:8px;font-weight:800;color:#2d5016;
+  margin-top:2px;text-align:center;line-height:1.1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%;padding:0 2px;
+}
 .table .order-badge{
-  position:absolute;top:3px;right:3px;background:#c0392b;color:#fff;
-  font-size:10px;font-weight:800;padding:1px 5px;border-radius:7px;
-  border:1.5px solid #1a0f07;
+  position:absolute;top:3px;right:3px;background:#ff6b6b;color:#fff;
+  font-size:9px;font-weight:800;padding:1px 5px;border-radius:8px;
+  box-shadow:0 1px 3px rgba(255,107,107,.4);
+  min-width:18px;text-align:center;
 }
 .table .timer-bar{
-  position:absolute;bottom:0;left:0;right:0;height:4px;
-  background:#27ae60;transform-origin:left;transform:scaleX(0);
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:#4ade80;transform-origin:left;transform:scaleX(0);
   will-change:transform;
 }
+.table.event-green{box-shadow:0 2px 0 #7bc96f,0 0 8px rgba(123,201,111,.4)}
+.table.event-red{box-shadow:0 2px 0 #ff6b6b,0 0 8px rgba(255,107,107,.4)}
+.table.event-yellow{box-shadow:0 2px 0 #f5d78e,0 0 8px rgba(245,215,142,.4)}
+.table.event-purple{box-shadow:0 2px 0 #c896e8,0 0 8px rgba(200,150,232,.4)}
 
+#rush-indicator{
+  position:absolute;top:-2px;right:10px;
+  font-size:10px;font-weight:800;padding:2px 10px;border-radius:0 0 10px 10px;
+  display:none;
+}
+#rush-indicator.show{display:block}
+#rush-indicator.rush{background:#ff6b6b;color:#fff}
+#rush-indicator.slow{background:#8b8b8b;color:#fff}
+
+/* ========== ORDER BAR ========== */
 #order-bar{
-  background:#2b1b10;border-top:2px solid #8b6914;border-bottom:1.5px solid #8b6914;
-  padding:4px 8px;min-height:40px;display:flex;align-items:center;gap:5px;
+  background:#fafdf5;border-bottom:2px solid #d8ecc8;
+  padding:7px 12px;min-height:46px;display:flex;align-items:center;gap:6px;
   flex-shrink:0;overflow-x:auto;overflow-y:hidden;white-space:nowrap;
   scrollbar-width:none;overscroll-behavior:contain;
 }
 #order-bar::-webkit-scrollbar{display:none}
 .order-item{
-  background:#4a2c1a;border:1.5px solid #c49a3c;border-radius:7px;
-  padding:1px 7px;font-size:11px;font-weight:700;color:#f5e6d3;
-  flex-shrink:0;display:inline-flex;align-items:center;gap:3px;
+  background:#fff;border:2px solid #c8e8b8;border-radius:12px;
+  padding:3px 11px;font-size:11px;font-weight:700;color:#2d5016;
+  flex-shrink:0;display:inline-flex;align-items:center;gap:4px;
+  box-shadow:0 2px 0 rgba(160,200,140,.4);
 }
-.order-item.done{border-color:#27ae60;background:#1e4a2a;opacity:.65;
-  text-decoration:line-through}
-.order-label{font-size:10px;color:#c49a3c;font-weight:800;flex-shrink:0}
+.order-item.done{
+  border-color:#4ade80;background:#e8fff0;color:#15803d;
+  text-decoration:line-through;opacity:.7;
+}
+.order-label{font-size:12px;color:#4a9e3f;font-weight:800;flex-shrink:0}
 
+/* ========== COUNTER ========== */
 #counter{
-  background:linear-gradient(180deg,#5c3a1e,#4a2c1a);
-  border-top:2px solid #c49a3c;padding:5px 7px;flex-shrink:0;
-  display:flex;flex-direction:column;gap:3px;position:relative;
+  flex:1;background:linear-gradient(180deg,#f7fdf5,#eaf7e0);
+  border-top:2px solid #c8e8b8;
+  padding:8px 10px;flex-shrink:0;overflow-y:auto;
+  display:flex;flex-direction:column;gap:8px;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  min-height:0;
 }
-#steps{display:flex;gap:3px}
+#counter::-webkit-scrollbar{display:none}
+
+#btn-reset-bake{
+  position:absolute;top:8px;right:12px;z-index:10;
+  background:#f5d78e;color:#7a5a1f;border:none;
+  border-radius:9px;font-size:10px;font-weight:800;
+  padding:4px 9px;font-family:inherit;cursor:pointer;
+  box-shadow:0 2px 0 #d4b85c;
+}
+#btn-reset-bake:active{transform:translateY(1px);box-shadow:0 1px 0 #d4b85c}
+
+/* 4 bước */
+#steps{display:flex;gap:5px}
 .step{
-  flex:1;background:#2b1b10;border:1.5px solid #6b4c33;border-radius:9px;
-  padding:5px 3px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center;position:relative;
-  min-height:54px;cursor:pointer;
+  flex:1;background:#fff;border-radius:14px;
+  padding:7px 3px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  position:relative;min-height:58px;cursor:pointer;transition:all .15s;
+  box-shadow:0 2px 0 #d8ecc8;border:2px solid transparent;
 }
-.step.active{border-color:#f5d78e;background:#3d2b1a}
+.step.active{
+  border-color:#7bc96f;background:#fff;
+  box-shadow:0 2px 0 #7bc96f,0 0 12px rgba(123,201,111,.4);
+  transform:translateY(-1px);
+}
 .step.locked{opacity:.4;pointer-events:none}
-.step .step-icon{font-size:18px;line-height:1;margin-bottom:2px}
-.step .step-label{font-size:9px;font-weight:800;color:#f5d78e;line-height:1.1}
-.step .step-sub{font-size:8px;color:#c49a3c;font-weight:600}
+.step .step-icon{font-size:20px;line-height:1;margin-bottom:1px}
+.step .step-label{font-size:9px;font-weight:800;color:#2d5016;line-height:1.1}
+.step .step-sub{font-size:8px;color:#4a9e3f;font-weight:600}
 .step .progress-ring{
-  position:absolute;top:2px;right:3px;font-size:8px;font-weight:800;color:#e74c3c;
+  position:absolute;top:2px;right:4px;font-size:9px;font-weight:800;color:#e67e22;
 }
 
-#nhan-selector{display:none;gap:3px;flex-wrap:wrap;justify-content:center;padding:2px 0}
-#nhan-selector.show{display:flex}
-.nhan-btn{
-  background:#2b1b10;border:1.5px solid #8b6914;border-radius:7px;
-  padding:2px 7px;font-size:10px;font-weight:700;color:#f5e6d3;
-  font-family:inherit;cursor:pointer;
+/* KHU LÀM BÁNH - 2 cột */
+#baking-area{
+  display:flex;gap:8px;align-items:stretch;
+  min-height:200px;
 }
-.nhan-btn.selected{background:#8b6914;border-color:#f5d78e;color:#fff}
 
-#tray{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding-top:3px}
+/* Cột trái - hoạt họa bánh */
+#bake-anim{
+  flex:0 0 35%;
+  background:linear-gradient(180deg,#fff,#f0fae8);
+  border-radius:16px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:10px 6px;position:relative;
+  box-shadow:0 2px 0 #d8ecc8;
+  text-align:center;
+}
+#bake-anim .anim-icon{
+  font-size:44px;line-height:1;
+  margin-bottom:6px;transition:font-size .2s;
+}
+#bake-anim .anim-status{
+  font-size:11px;font-weight:800;color:#2d5016;
+  margin-bottom:6px;line-height:1.2;
+}
+#bake-anim .anim-bar{
+  width:80%;height:8px;background:#e0f0d8;
+  border-radius:5px;overflow:hidden;margin-bottom:4px;
+}
+#bake-anim .anim-bar-fill{
+  height:100%;width:100%;
+  background:linear-gradient(90deg,#7bc96f,#4a9e3f);
+  transform-origin:left;transform:scaleX(0);
+  transition:transform .1s linear;
+  border-radius:5px;
+}
+#bake-anim .anim-timer{
+  font-size:10px;font-weight:700;color:#4a9e3f;
+}
+
+/* Cột phải - chọn nhân */
+#nhan-area{
+  flex:1;
+  background:#fff;border-radius:16px;
+  padding:8px;display:flex;flex-direction:column;
+  box-shadow:0 2px 0 #d8ecc8;
+  min-width:0;
+}
+#nhan-title{
+  font-size:11px;font-weight:800;color:#2d5016;
+  margin-bottom:6px;display:flex;align-items:center;gap:4px;
+}
+#nhan-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6px;flex:1;
+}
+.nhan-card{
+  background:#f7fdf5;border:2px solid #d8ecc8;
+  border-radius:12px;padding:6px 4px;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:space-between;text-align:center;
+  cursor:pointer;transition:all .12s;
+  min-height:82px;position:relative;
+}
+.nhan-card:active{transform:scale(.96)}
+.nhan-card.selected{
+  border-color:#4a9e3f;background:#e8fff0;
+  box-shadow:0 0 10px rgba(74,158,63,.4);
+}
+.nhan-card.empty{
+  opacity:.4;pointer-events:none;
+}
+.nhan-card .nc-icon{font-size:18px;line-height:1}
+.nhan-card .nc-name{font-size:10px;font-weight:800;color:#2d5016;line-height:1.1}
+.nhan-card .nc-stock{font-size:9px;font-weight:700;color:#4a9e3f}
+.nhan-card .nc-stock.low{color:#e67e22}
+.nhan-card .nc-stock.zero{color:#ff6b6b}
+.nhan-card .nc-btn{
+  background:#7bc96f;color:#fff;border:none;
+  border-radius:7px;font-size:9px;font-weight:800;
+  padding:2px 10px;font-family:inherit;cursor:pointer;
+  box-shadow:0 1px 0 #4a9e3f;
+  margin-top:2px;
+}
+.nhan-card .nc-btn:active{transform:translateY(1px);box-shadow:none}
+.nhan-card.selected .nc-btn{background:#4a9e3f}
+
+/* Khay món mua sẵn */
+#tray-title{
+  font-size:11px;font-weight:800;color:#2d5016;
+  margin-bottom:4px;
+}
+#tray{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
 .tray-item{
-  background:#2b1b10;border:1.5px solid #6b4c33;border-radius:7px;
-  padding:3px 2px;text-align:center;cursor:pointer;color:#f5e6d3;
+  background:#fff;border:2px solid #d8ecc8;
+  border-radius:12px;padding:6px 3px;
+  text-align:center;cursor:pointer;color:#2d5016;
   font-family:inherit;transition:transform .05s;
+  box-shadow:0 2px 0 #d8ecc8;
+  position:relative;
 }
 .tray-item:active{transform:scale(.95)}
-.tray-item .tray-icon{font-size:15px;line-height:1}
-.tray-item .tray-name{font-size:8px;font-weight:700;color:#f5d78e}
-.tray-item .tray-price{font-size:8px;color:#c49a3c;font-weight:600}
+.tray-item.empty{
+  opacity:.4;pointer-events:none;
+}
+.tray-item .tray-icon{font-size:18px;line-height:1}
+.tray-item .tray-name{font-size:9px;font-weight:800;color:#2d5016}
+.tray-item .tray-price{font-size:8px;color:#4a9e3f;font-weight:600}
+.tray-item .tray-stock{
+  position:absolute;top:2px;right:3px;
+  background:#7bc96f;color:#fff;
+  font-size:8px;font-weight:800;
+  padding:0 5px;border-radius:7px;line-height:14px;
+}
+.tray-item.empty .tray-stock{background:#bbb}
 
-#nav{display:flex;background:#1a0f07;border-top:2px solid #8b6914;flex-shrink:0}
+/* ========== NAV ========== */
+#nav{
+  display:flex;background:#fff;
+  border-top:2px solid #c8e8b8;flex-shrink:0;
+}
 .nav-btn{
-  flex:1;background:transparent;border:none;border-right:1px solid #3d2b1a;
-  padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;
-  cursor:pointer;font-family:inherit;color:#c49a3c;
+  flex:1;background:transparent;border:none;
+  border-right:1px solid #e8f4e0;
+  padding:6px 2px;display:flex;flex-direction:column;
+  align-items:center;gap:1px;cursor:pointer;
+  font-family:inherit;color:#4a9e3f;transition:background .1s;
 }
 .nav-btn:last-child{border-right:none}
-.nav-btn:active{background:#2b1b10}
-.nav-btn .nav-icon{font-size:15px;line-height:1}
-.nav-btn .nav-label{font-size:8px;font-weight:700;color:#f5d78e}
+.nav-btn:active{background:#f0fae8}
+.nav-btn .nav-icon{font-size:17px;line-height:1}
+.nav-btn .nav-label{
+  font-size:8px;font-weight:800;color:#2d5016;
+  text-align:center;line-height:1.1;
+}
 
+/* ========== PANEL ========== */
 .panel{
-  position:absolute;inset:0;background:rgba(20,12,6,.97);z-index:100;
-  display:none;flex-direction:column;padding:10px;overflow-y:auto;
-  -webkit-overflow-scrolling:touch;border-radius:15px;overscroll-behavior:contain;
+  position:absolute;inset:0;background:rgba(247,253,245,.98);
+  z-index:100;display:none;flex-direction:column;padding:12px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
 }
 .panel.open{display:flex}
 .panel-title{
-  font-size:15px;font-weight:800;color:#f5d78e;margin-bottom:8px;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.panel-close{
-  background:#c0392b;border:1.5px solid #1a0f07;border-radius:7px;color:#fff;
-  font-size:13px;font-weight:800;padding:3px 9px;cursor:pointer;font-family:inherit;
-}
-.panel-row{
-  background:#2b1b10;border:1.5px solid #6b4c33;border-radius:9px;
-  padding:7px;margin-bottom:5px;display:flex;justify-content:space-between;
+  font-size:16px;font-weight:800;color:#2d5016;
+  margin-bottom:10px;display:flex;justify-content:space-between;
   align-items:center;
 }
-.panel-row .info .name{font-size:12px;font-weight:800;color:#f5d78e}
-.panel-row .info .desc{font-size:9px;color:#c49a3c}
+.panel-close{
+  background:#ff6b6b;border:none;border-radius:8px;color:#fff;
+  font-size:14px;font-weight:800;padding:4px 11px;
+  cursor:pointer;font-family:inherit;
+  box-shadow:0 2px 0 #c94a4a;
+}
+.panel-close:active{transform:translateY(1px);box-shadow:none}
+
+/* Tabs trong panel */
+.panel-tabs{
+  display:flex;gap:5px;margin-bottom:10px;
+  background:#e8f4e0;border-radius:12px;padding:3px;
+}
+.panel-tab{
+  flex:1;background:transparent;border:none;
+  border-radius:9px;padding:7px 4px;
+  font-size:11px;font-weight:800;color:#4a9e3f;
+  cursor:pointer;font-family:inherit;
+  transition:all .15s;
+}
+.panel-tab.active{
+  background:#fff;color:#2d5016;
+  box-shadow:0 1px 3px rgba(120,180,100,.25);
+}
+
+/* Row trong panel */
+.panel-row{
+  background:#fff;border:2px solid #e0f0d8;
+  border-radius:12px;padding:10px;margin-bottom:6px;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:8px;
+  box-shadow:0 2px 0 #e8f4e0;
+}
+.panel-row .info{flex:1;min-width:0}
+.panel-row .info .name{
+  font-size:12px;font-weight:800;color:#2d5016;
+  display:flex;align-items:center;gap:5px;
+}
+.panel-row .info .desc{
+  font-size:10px;color:#4a9e3f;margin-top:2px;
+}
+.panel-row .info .desc.warn{color:#e67e22}
+.panel-row .info .desc.danger{color:#ff6b6b}
 .panel-btn{
-  background:#8b6914;border:1.5px solid #1a0f07;border-radius:7px;color:#fff;
-  font-size:10px;font-weight:800;padding:4px 9px;cursor:pointer;font-family:inherit;
-  white-space:nowrap;
+  background:#7bc96f;border:none;border-radius:9px;color:#fff;
+  font-size:10px;font-weight:800;padding:6px 12px;
+  cursor:pointer;font-family:inherit;white-space:nowrap;
+  box-shadow:0 2px 0 #4a9e3f;
 }
-.panel-btn:disabled{opacity:.4;pointer-events:none}
+.panel-btn:active{transform:translateY(1px);box-shadow:none}
+.panel-btn:disabled{opacity:.4;pointer-events:none;box-shadow:0 2px 0 #999}
+.panel-btn.buy{background:#f5c542;box-shadow:0 2px 0 #c9a02a;color:#5a3a0f}
+.panel-btn.danger{background:#ff6b6b;box-shadow:0 2px 0 #c94a4a}
+.panel-btn.upgrade{background:#4a9e3f;box-shadow:0 2px 0 #2d6b28}
 
+.section-title{
+  font-size:11px;font-weight:800;color:#4a9e3f;
+  margin:10px 0 6px;text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+/* Achievement */
+.ach-row{
+  background:#fff;border:2px solid #e0f0d8;
+  border-radius:12px;padding:8px 10px;margin-bottom:5px;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 2px 0 #e8f4e0;opacity:.55;
+}
+.ach-row.unlocked{opacity:1;border-color:#7bc96f;background:#f0fae8}
+.ach-row .ach-icon{font-size:18px;flex-shrink:0}
+.ach-row .ach-name{font-size:11px;font-weight:800;color:#2d5016}
+.ach-row .ach-desc{font-size:9px;color:#4a9e3f;margin-top:1px}
+
+/* Quest */
+.quest-row{
+  background:#fff;border:2px solid #e0f0d8;
+  border-radius:12px;padding:10px;margin-bottom:6px;
+  box-shadow:0 2px 0 #e8f4e0;
+}
+.quest-row.done{border-color:#7bc96f;background:#f0fae8}
+.quest-row .q-head{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-bottom:4px;
+}
+.quest-row .q-name{font-size:12px;font-weight:800;color:#2d5016}
+.quest-row .q-progress{
+  font-size:11px;font-weight:800;color:#4a9e3f;
+}
+.quest-row.done .q-progress{color:#2d6b28}
+.quest-row .q-reward{
+  font-size:10px;color:#7a5a1f;font-weight:700;
+}
+.quest-row .q-bar{
+  height:6px;background:#e0f0d8;border-radius:3px;
+  overflow:hidden;margin-top:4px;
+}
+.quest-row .q-bar-fill{
+  height:100%;background:linear-gradient(90deg,#7bc96f,#4a9e3f);
+  transform-origin:left;transition:transform .3s;
+}
+
+/* ========== TOAST ========== */
 #toast{
-  position:absolute;bottom:70px;left:50%;transform:translateX(-50%);
-  background:#1a0f07;border:1.5px solid #c49a3c;border-radius:9px;
-  padding:5px 14px;font-size:12px;font-weight:700;color:#f5d78e;
-  z-index:200;pointer-events:none;opacity:0;transition:opacity .15s;
-  white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;
+  position:absolute;bottom:70px;left:50%;
+  transform:translateX(-50%);
+  background:#fff;border:2px solid #7bc96f;
+  border-radius:12px;padding:8px 16px;
+  font-size:12px;font-weight:800;color:#2d5016;
+  z-index:200;pointer-events:none;opacity:0;
+  transition:opacity .15s,transform .15s;
+  white-space:nowrap;max-width:90vw;
+  overflow:hidden;text-overflow:ellipsis;
+  box-shadow:0 4px 12px rgba(120,180,100,.3);
 }
-#toast.show{opacity:1}
-.hidden{display:none!important}
-.gold{color:#f5d78e}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+#toast.event{background:#f5d78e;border-color:#e6c34d;color:#5a3a0f}
 
+/* ========== MODAL ========== */
 .modal-overlay{
-  position:absolute;inset:0;background:rgba(0,0,0,.75);
-  display:none;align-items:center;justify-content:center;z-index:300;
-  padding:20px;
+  position:absolute;inset:0;background:rgba(45,80,22,.5);
+  display:none;align-items:center;justify-content:center;
+  z-index:300;padding:20px;
 }
 .modal-overlay.open{display:flex}
 .modal-box{
-  background:#3d2b1a;border:2px solid #c49a3c;border-radius:14px;
-  padding:16px;max-width:320px;width:100%;text-align:center;
+  background:#fff;border:3px solid #7bc96f;
+  border-radius:18px;padding:18px;max-width:320px;
+  width:100%;text-align:center;
+  box-shadow:0 8px 24px rgba(45,80,22,.3);
 }
-.modal-title{font-size:15px;font-weight:800;color:#f5d78e;margin-bottom:8px}
-.modal-msg{font-size:12px;color:#f5e6d3;margin-bottom:14px}
+.modal-title{
+  font-size:16px;font-weight:800;color:#2d5016;
+  margin-bottom:10px;
+}
+.modal-msg{
+  font-size:12px;color:#4a9e3f;margin-bottom:16px;
+  line-height:1.5;
+}
 .modal-actions{display:flex;gap:8px;justify-content:center}
 .modal-btn{
-  flex:1;padding:8px;border-radius:8px;border:2px solid #1a0f07;
-  font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;
+  flex:1;padding:10px;border-radius:10px;border:none;
+  font-family:inherit;font-size:13px;font-weight:800;
+  cursor:pointer;transition:transform .05s;
 }
-.modal-btn.cancel{background:#6b4c33;color:#fff}
-.modal-btn.ok{background:#c0392b;color:#fff}
 .modal-btn:active{transform:scale(.96)}
+.modal-btn.cancel{background:#e8f4e0;color:#4a9e3f}
+.modal-btn.ok{background:#ff6b6b;color:#fff;box-shadow:0 2px 0 #c94a4a}
+.modal-btn.ok:active{transform:translateY(1px);box-shadow:none}
 
-@media (max-height:680px){
-  .step{min-height:46px;padding:3px 2px}
-  .step .step-icon{font-size:15px}
-  .table .khach-icon{font-size:20px}
-  .logo{font-size:13px}
+.hidden{display:none!important}
+
+@media (max-height:700px){
+  #bake-anim .anim-icon{font-size:36px}
+  .step{min-height:50px;padding:5px 3px}
+  .step .step-icon{font-size:17px}
+  .table .khach-icon{font-size:18px}
+  .nhan-card{min-height:72px}
+  #baking-area{min-height:170px}
 }
 @media (display-mode:standalone){
-  #header{padding-top:calc(5px + env(safe-area-inset-top))}
+  #header{padding-top:calc(6px + env(safe-area-inset-top))}
   #nav{padding-bottom:env(safe-area-inset-bottom)}
 }
 </style>
 </head>
 <body>
 <div id="game">
-  <div class="dienm"></div>
+
+  <!-- HEADER -->
   <div id="header">
     <div class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#f5d78e" stroke-width="2">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-        <path d="M2 17l10 5 10-5"/>
-        <path d="M2 12l10 5 10-5"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2d5016" stroke-width="2.2">
+        <path d="M12 2C8 2 5 4 4 7c2 1 4 1 6 0 1 2 3 3 5 2 0 2 1 3 3 3-1 3-3 5-6 6-2 0-4-1-5-3-2 1-3 0-4-2 0-4 3-8 9-11z"/>
       </svg>
       Bảo Minh
     </div>
     <div id="stats-row">
-      <div class="stat">Lv <span id="ui-lv">1</span></div>
-      <div class="stat">💰 <span id="ui-money">0</span></div>
-      <div class="stat">⭐ <span id="ui-rep">0</span></div>
-      <div class="stat">📅 <span id="ui-day">1</span>/30</div>
+      <div class="stat">Lv <b id="ui-lv">1</b></div>
+      <div class="stat">💰 <b id="ui-money">100k</b></div>
+      <div class="stat">⭐ <b id="ui-rep">0</b></div>
+      <div class="stat">📅 <b id="ui-day">1</b>/30</div>
       <div id="time-box">🕐 <span id="ui-time">10:00</span></div>
     </div>
   </div>
 
-  <div id="scene">
+  <!-- KHU KHÁCH -->
+  <div id="customers-row">
+    <div id="rush-indicator"></div>
     <div id="tables">
-      <div class="table" data-idx="0"><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
-      <div class="table" data-idx="1"><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
-      <div class="table" data-idx="2"><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
-      <div class="table" data-idx="3"><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
+      <div class="table" data-idx="0"><div class="event-icon"></div><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
+      <div class="table" data-idx="1"><div class="event-icon"></div><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
+      <div class="table" data-idx="2"><div class="event-icon"></div><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
+      <div class="table" data-idx="3"><div class="event-icon"></div><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div></div>
     </div>
   </div>
 
+  <!-- ORDER BAR -->
   <div id="order-bar">
     <span class="order-label">📋</span>
-    <span id="order-content" style="font-size:11px;color:#c49a3c;font-weight:600">Chọn khách để xem order</span>
+    <span id="order-content" style="font-size:11px;color:#4a9e3f;font-weight:700">Chọn khách để xem order</span>
   </div>
 
+  <!-- KHU LÀM BÁNH -->
   <div id="counter">
-    <button id="btn-reset-bake" style="position:absolute;top:4px;right:4px;z-index:10;background:#c0392b;border:1.5px solid #1a0f07;border-radius:6px;color:#fff;font-size:9px;font-weight:800;padding:2px 6px;font-family:inherit;cursor:pointer">🔄</button>
+    <button id="btn-reset-bake">🔄 Reset</button>
     <div id="steps">
       <div class="step active" data-step="1"><div class="step-icon">🤲</div><div class="step-label">NẶN</div><div class="step-sub">3s</div><div class="progress-ring"></div></div>
       <div class="step locked" data-step="2"><div class="step-icon">🫘</div><div class="step-label">NHÂN</div><div class="step-sub">chọn</div><div class="progress-ring"></div></div>
       <div class="step locked" data-step="3"><div class="step-icon">📦</div><div class="step-label">GÓI</div><div class="step-sub">1.5s</div><div class="progress-ring"></div></div>
       <div class="step locked" data-step="4"><div class="step-icon">🎁</div><div class="step-label">GIAO</div><div class="step-sub">bấm</div><div class="progress-ring"></div></div>
     </div>
-    <div id="nhan-selector">
-      <button class="nhan-btn selected" data-nhan="none">Không</button>
-      <button class="nhan-btn" data-nhan="dau_xanh">Đậu xanh</button>
-      <button class="nhan-btn" data-nhan="sau_rieng">Sầu riêng</button>
-      <button class="nhan-btn" data-nhan="xa_xiu">Xá xíu</button>
+
+    <div id="baking-area">
+      <div id="bake-anim">
+        <div class="anim-icon">🍡</div>
+        <div class="anim-status">Sẵn sàng</div>
+        <div class="anim-bar"><div class="anim-bar-fill"></div></div>
+        <div class="anim-timer"></div>
+      </div>
+      <div id="nhan-area">
+        <div id="nhan-title">🫘 CHỌN NHÂN</div>
+        <div id="nhan-grid"></div>
+      </div>
     </div>
-    <div id="tray">
-      <button class="tray-item" data-item="phu_the"><div class="tray-icon">🍬</div><div class="tray-name">Phu thê</div><div class="tray-price">15k</div></button>
-      <button class="tray-item" data-item="pia"><div class="tray-icon">🥮</div><div class="tray-name">Pía</div><div class="tray-price">20k</div></button>
-      <button class="tray-item" data-item="banh_cha"><div class="tray-icon">🥖</div><div class="tray-name">Bánh chả</div><div class="tray-price">25k</div></button>
-      <button class="tray-item" data-item="khao"><div class="tray-icon">🍪</div><div class="tray-name">Khảo</div><div class="tray-price">18k</div></button>
-      <button class="tray-item" data-item="keo_lac"><div class="tray-icon">🥜</div><div class="tray-name">Kẹo lạc</div><div class="tray-price">12k</div></button>
-      <button class="tray-item" data-item="tra_sua"><div class="tray-icon">🧋</div><div class="tray-name">Trà sữa</div><div class="tray-price">30k</div></button>
+
+    <div>
+      <div id="tray-title">🍬 MÓN MUA SẴN</div>
+      <div id="tray"></div>
     </div>
   </div>
 
+  <!-- NAV -->
   <div id="nav">
-    <button class="nav-btn" data-panel="staff"><span class="nav-icon">👥</span><span class="nav-label">NV</span></button>
-    <button class="nav-btn" data-panel="log"><span class="nav-icon">📜</span><span class="nav-label">Log</span></button>
-    <button class="nav-btn" data-panel="ach"><span class="nav-icon">🏆</span><span class="nav-label">Thành tích</span></button>
-    <button class="nav-btn" data-panel="record"><span class="nav-icon">📊</span><span class="nav-label">Kỷ lục</span></button>
-    <button class="nav-btn" data-panel="settings"><span class="nav-icon">⚙️</span><span class="nav-label">Cài đặt</span></button>
+    <button class="nav-btn" data-panel="staff"><span class="nav-icon">👥</span><span class="nav-label">NV &<br>Nâng cấp</span></button>
+    <button class="nav-btn" data-panel="shop"><span class="nav-icon">🏪</span><span class="nav-label">Kho &<br>Cửa hàng</span></button>
+    <button class="nav-btn" data-panel="quest"><span class="nav-icon">📋</span><span class="nav-label">Nhiệm<br>vụ</span></button>
+    <button class="nav-btn" data-panel="settings"><span class="nav-icon">⚙️</span><span class="nav-label">Cài<br>đặt</span></button>
   </div>
 
+  <!-- PANEL: NV & Nâng cấp -->
   <div class="panel" id="panel-staff">
-    <div class="panel-title">👥 Nhân viên <button class="panel-close" data-close="staff">✕</button></div>
-    <div id="staff-list"></div>
-    <div style="font-size:10px;color:#c49a3c;text-align:center;margin-top:6px">Trả lương mỗi ngày. Hết tiền → NV nghỉ.</div>
+    <div class="panel-title">👥 Nhân viên & Nâng cấp <button class="panel-close" data-close="staff">✕</button></div>
+    <div class="panel-tabs">
+      <button class="panel-tab active" data-tab="staff-tab1">Nhân viên</button>
+      <button class="panel-tab" data-tab="staff-tab2">Nâng cấp</button>
+    </div>
+    <div id="staff-tab1"></div>
+    <div id="staff-tab2" class="hidden"></div>
   </div>
-  <div class="panel" id="panel-log">
-    <div class="panel-title">📜 Nhật ký <button class="panel-close" data-close="log">✕</button></div>
-    <div id="log-list" style="flex:1"></div>
+
+  <!-- PANEL: Kho & Cửa hàng -->
+  <div class="panel" id="panel-shop">
+    <div class="panel-title">🏪 Kho & Cửa hàng <button class="panel-close" data-close="shop">✕</button></div>
+    <div class="panel-tabs">
+      <button class="panel-tab active" data-tab="shop-tab1">🛒 Mua hàng</button>
+      <button class="panel-tab" data-tab="shop-tab2">📦 Kho</button>
+    </div>
+    <div id="shop-tab1"></div>
+    <div id="shop-tab2" class="hidden"></div>
   </div>
-  <div class="panel" id="panel-ach">
-    <div class="panel-title">🏆 Thành tích <button class="panel-close" data-close="ach">✕</button></div>
-    <div id="ach-list" style="flex:1"></div>
+
+  <!-- PANEL: Nhiệm vụ -->
+  <div class="panel" id="panel-quest">
+    <div class="panel-title">📋 Nhiệm vụ <button class="panel-close" data-close="quest">✕</button></div>
+    <div class="section-title">Hôm nay</div>
+    <div id="quest-today"></div>
+    <div class="section-title">Thành tích</div>
+    <div id="quest-ach"></div>
   </div>
-  <div class="panel" id="panel-record">
-    <div class="panel-title">📊 Kỷ lục <button class="panel-close" data-close="record">✕</button></div>
-    <div id="record-list"></div>
-  </div>
+
+  <!-- PANEL: Cài đặt -->
   <div class="panel" id="panel-settings">
     <div class="panel-title">⚙️ Cài đặt <button class="panel-close" data-close="settings">✕</button></div>
-    <div class="panel-row"><div class="info"><div class="name">💾 Lưu</div><div class="desc">Tự động mỗi 10s</div></div><button class="panel-btn" id="btn-save">Lưu</button></div>
+    <div class="panel-row"><div class="info"><div class="name">💾 Lưu game</div><div class="desc">Tự động mỗi 10s</div></div><button class="panel-btn" id="btn-save">Lưu</button></div>
     <div class="panel-row"><div class="info"><div class="name">🔊 Âm thanh</div><div class="desc">Bật/tắt</div></div><button class="panel-btn" id="btn-sound">BẬT</button></div>
-    <div class="panel-row"><div class="info"><div class="name">🗑️ Xóa save</div><div class="desc">Chơi lại</div></div><button class="panel-btn" id="btn-reset" style="background:#c0392b">Xóa</button></div>
+    <div class="panel-row"><div class="info"><div class="name">🗑️ Xóa save</div><div class="desc danger">Chơi lại từ đầu</div></div><button class="panel-btn danger" id="btn-reset">Xóa</button></div>
   </div>
 
+  <!-- MODAL -->
   <div class="modal-overlay" id="modal-confirm">
     <div class="modal-box">
       <div class="modal-title" id="modal-title">Xác nhận</div>
@@ -324,898 +619,2651 @@ body{
     </div>
   </div>
 
+  <!-- TOAST -->
   <div id="toast"></div>
+
 </div>
 
+<!-- PHẦN 2, 3, 4 SẼ CHÈN VÀO ĐÂY -->
 <script>
 (function(){
 'use strict';
 
+// ============================================================
+// 1. CONFIG — Hằng số cấu hình game
+// ============================================================
 const CFG = {
-  DAY_DURATION: 240, DAY_START: 10, DAY_END: 18, MAX_DAYS: 30,
-  CUSTOMER_WAIT: 30, MAX_TABLES: 4,
-  SPAWN_MIN: 3, SPAWN_MAX: 7,
-  SISTER_CHANCE: .08, SISTER_INTERVAL: 60,
-  SISTER_MIN: 500000, SISTER_MAX: 2000000,
-  QUYT_CHANCE: .15, BASE_REP: 2, XP_PER_LV: 100, MAX_LV: 30,
-  TICK_MS: 200,
+  // Thời gian
+  DAY_START: 10,          // 10:00
+  DAY_END: 18,            // 18:00
+  MAX_DAYS: 30,
+  TIME_SPEED: 2,          // 1s thực = 2 phút game
+
+  // Khách
+  MAX_TABLES_BASE: 4,     // Số bàn cơ bản
+  MAX_TABLES: 7,          // Tối đa khi nâng cấp
+  CUSTOMER_WAIT: 30,      // Chờ 30s
+  SPAWN_MIN: 3,           // 3-7s spawn 1 khách
+  SPAWN_MAX: 7,
+
+  // Làm bánh
+  BAKE_TIME: 3,           // Nặn 3s
+  PACK_TIME: 1.5,         // Gói 1.5s
+
+  // Chị Dung
+  SISTER_CHANCE: 0.08,    // 8%
+  SISTER_INTERVAL: 60,    // Check mỗi 60s
+  SISTER_MIN: 500000,
+  SISTER_MAX: 2000000,
+
+  // Kinh tế
+  BASE_PRICE_BANHCOM: 25000,  // Giá bánh cốm cơ bản
+  QUYT_CHANCE: 0.15,      // 15% quỵt
+  BASE_REP: 2,            // Danh tiếng mỗi khách
+  XP_PER_LV: 100,
+  MAX_LV: 30,
+
+  // Loop
+  TICK_MS: 200,           // 5fps
+  SAVE_INTERVAL: 10,      // Lưu mỗi 10s
 };
+
+// ============================================================
+// 2. CHAPTERS — Chương theo cấp
+// ============================================================
 const CHAPTERS = [
-  {name:'Hà Nội',lvMin:1,bg:'#4a3420'},
-  {name:'Đà Nẵng',lvMin:11,bg:'#2a4a5a'},
-  {name:'Sài Gòn',lvMin:21,bg:'#5a3a2a'},
+  {name: 'Hà Nội', lvMin: 1,  bg: '#f7fdf5'},
+  {name: 'Đà Nẵng', lvMin: 11, bg: '#f0faf5'},
+  {name: 'Sài Gòn', lvMin: 21, bg: '#fdf8f0'},
 ];
-const CUSTOMER_NAMES = ['Khách','Cô Lan','Bác Hùng','Chị Mai','Anh Tuấn','Em Linh','Ông Bảy','Bà Tư'];
-const CUSTOMER_ICONS = ['🧑','👩','👨','👧','👦','🧓','👵'];
-const PREMADE = {
-  phu_the:{name:'Phu thê',price:15000,icon:'🍬'},
-  pia:{name:'Pía',price:20000,icon:'🥮'},
-  banh_cha:{name:'Bánh chả',price:25000,icon:'🥖'},
-  khao:{name:'Khảo',price:18000,icon:'🍪'},
-  keo_lac:{name:'Kẹo lạc',price:12000,icon:'🥜'},
-  tra_sua:{name:'Trà sữa cốm',price:30000,icon:'🧋'},
-};
-const NHAN = {
-  none:{name:'Không',price:0},
-  dau_xanh:{name:'Đậu xanh',price:5000},
-  sau_rieng:{name:'Sầu riêng',price:8000},
-  xa_xiu:{name:'Xá xíu',price:7000},
-};
-const PREMADE_KEYS = Object.keys(PREMADE);
-const NHAN_KEYS = Object.keys(NHAN);
 
-const state = {
-  lv:1,xp:0,money:100000,rep:0,day:1,time:CFG.DAY_START*60,chapter:0,
-  customers:[null,null,null,null],selectedTable:-1,
-  baking:{active:false,step:0,progress:0,nhan:'none',locked:false},
-  staff:{
-    chiTien:{unlocked:false,level:0,active:false},
-    chiPhuong:{unlocked:false,level:0,active:false},
-    anhDuc:{unlocked:false,level:0,active:false},
-    chiHuyen:{unlocked:false,level:0,active:false},
+// ============================================================
+// 3. NGUYÊN LIỆU & NHÂN — Định nghĩa vật phẩm
+// ============================================================
+const ITEMS = {
+  // Nhân
+  nhan_dau_xanh: {
+    id: 'nhan_dau_xanh',
+    name: 'Đậu xanh',
+    icon: '🟢',
+    color: '#a8e06a',
+    type: 'nhan',
+    buyPrice: 50000,    // 50k/lô
+    buyQty: 10,         // 10 cái
+    price: 5000,        // Giá mỗi cái (dùng tính tiền)
   },
-  logs:[],achievements:{},
-  records:{maxDay:1,maxMoney:0,maxRep:0,totalCustomers:0,totalBaked:0},
-  settings:{sound:true},
-  lastSisterTime:0,lastSpawnTime:0,
-  tickAcc:0,saveAcc:0,customerId:0,
-  running:false,ended:false,
+  nhan_sau_rieng: {
+    id: 'nhan_sau_rieng',
+    name: 'Sầu riêng',
+    icon: '🟡',
+    color: '#f5c542',
+    type: 'nhan',
+    buyPrice: 80000,
+    buyQty: 10,
+    price: 8000,
+  },
+  nhan_xa_xiu: {
+    id: 'nhan_xa_xiu',
+    name: 'Xá xíu',
+    icon: '🔴',
+    color: '#d97a5a',
+    type: 'nhan',
+    buyPrice: 70000,
+    buyQty: 10,
+    price: 7000,
+  },
+  nhan_none: {
+    id: 'nhan_none',
+    name: 'Không',
+    icon: '⚪',
+    color: '#e0e0e0',
+    type: 'nhan',
+    buyPrice: 0,
+    buyQty: 0,
+    price: 0,
+    free: true,
+  },
+
+  // Nguyên liệu
+  bot_nep: {
+    id: 'bot_nep',
+    name: 'Bột nếp',
+    icon: '🌾',
+    color: '#f5efe0',
+    type: 'nguyen_lieu',
+    buyPrice: 20000,
+    buyQty: 20,
+  },
+
+  // Món mua sẵn
+  phu_the: {
+    id: 'phu_the',
+    name: 'Phu thê',
+    icon: '🍬',
+    color: '#ffd0e8',
+    type: 'mon_san',
+    buyPrice: 8000,
+    buyQty: 5,
+    price: 15000,   // Giá bán
+  },
+  pia: {
+    id: 'pia',
+    name: 'Pía',
+    icon: '🥮',
+    color: '#f5d78e',
+    type: 'mon_san',
+    buyPrice: 12000,
+    buyQty: 5,
+    price: 20000,
+  },
+  banh_cha: {
+    id: 'banh_cha',
+    name: 'Bánh chả',
+    icon: '🥖',
+    color: '#e8c896',
+    type: 'mon_san',
+    buyPrice: 15000,
+    buyQty: 5,
+    price: 25000,
+  },
+  khao: {
+    id: 'khao',
+    name: 'Khảo',
+    icon: '🍪',
+    color: '#d4a878',
+    type: 'mon_san',
+    buyPrice: 10000,
+    buyQty: 5,
+    price: 18000,
+  },
+  keo_lac: {
+    id: 'keo_lac',
+    name: 'Kẹo lạc',
+    icon: '🥜',
+    color: '#c89664',
+    type: 'mon_san',
+    buyPrice: 7000,
+    buyQty: 5,
+    price: 12000,
+  },
+  tra_sua: {
+    id: 'tra_sua',
+    name: 'Trà sữa cốm',
+    icon: '🧋',
+    color: '#a8d8a8',
+    type: 'mon_san',
+    buyPrice: 18000,
+    buyQty: 5,
+    price: 30000,
+  },
 };
 
+// Danh sách keys để loop
+const NHAN_KEYS = ['nhan_dau_xanh', 'nhan_sau_rieng', 'nhan_xa_xiu', 'nhan_none'];
+const MON_SAN_KEYS = ['phu_the', 'pia', 'banh_cha', 'khao', 'keo_lac', 'tra_sua'];
+
+// ============================================================
+// 4. CUSTOMER EVENTS — 15 event ngẫu nhiên
+// ============================================================
+const EVENTS = [
+  // --- TÍCH CỰC (green) ---
+  {
+    id: 'regular',
+    name: 'Khách quen',
+    icon: '⭐',
+    color: 'green',
+    chance: 0.08,
+    moneyMul: 1.2,
+    quytChance: 0,       // Không bao giờ quỵt
+    waitBonus: 0,
+    desc: '+20% tiền, không quỵt',
+  },
+  {
+    id: 'rich',
+    name: 'Khách giàu',
+    icon: '💎',
+    color: 'green',
+    chance: 0.05,
+    moneyMul: 1.0,
+    tipBonus: 50000,     // Tip thêm
+    extraItems: 2,       // Order thêm 2 món phụ
+    desc: 'Tip 50k, order nhiều',
+  },
+  {
+    id: 'tourist',
+    name: 'Khách du lịch',
+    icon: '🌍',
+    color: 'green',
+    chance: 0.06,
+    moneyMul: 1.5,
+    quytChance: 0,
+    waitBonus: 10,       // +10s chờ
+    desc: 'Trả 150%, không quỵt',
+  },
+  {
+    id: 'reviewer',
+    name: 'Khách review',
+    icon: '📝',
+    color: 'green',
+    chance: 0.07,
+    moneyMul: 1.0,
+    repBonus: 10,        // +10 rep nếu phục vụ
+    desc: '+10 danh tiếng',
+  },
+  {
+    id: 'bulk',
+    name: 'Mua hết hàng',
+    icon: '🛒',
+    color: 'green',
+    chance: 0.04,
+    moneyMul: 1.3,
+    extraItems: 3,       // +3 món phụ
+    desc: 'Order 3+ món phụ',
+  },
+  {
+    id: 'preorder',
+    name: 'Đặt trước',
+    icon: '📞',
+    color: 'green',
+    chance: 0.05,
+    moneyMul: 1.3,
+    need2Banh: true,     // Cần 2 bánh cốm
+    desc: 'Cần 2 bánh cốm',
+  },
+
+  // --- TIÊU CỰC (red) ---
+  {
+    id: 'picky',
+    name: 'Khách khó tính',
+    icon: '😤',
+    color: 'red',
+    chance: 0.06,
+    moneyMul: 1.0,
+    quytChance: 0.5,     // 50% quỵt
+    desc: 'Quỵt 50%!',
+  },
+  {
+    id: 'hurry',
+    name: 'Khách vội',
+    icon: '⚡',
+    color: 'red',
+    chance: 0.07,
+    moneyMul: 1.0,
+    waitOverride: 15,    // Chỉ chờ 15s
+    desc: 'Chỉ chờ 15s!',
+  },
+  {
+    id: 'haggle',
+    name: 'Khách trả giá',
+    icon: '💸',
+    color: 'red',
+    chance: 0.05,
+    moneyMul: 0.7,       // Chỉ trả 70%
+    desc: 'Chỉ trả 70% giá',
+  },
+  {
+    id: 'complain',
+    name: 'Khách phàn nàn',
+    icon: '😠',
+    color: 'red',
+    chance: 0.06,
+    moneyMul: 1.0,
+    repPenalty: 5,       // -5 rep nếu chờ >20s
+    desc: 'Chờ lâu → -5 rep',
+  },
+
+  // --- TRUNG TÍNH (yellow) ---
+  {
+    id: 'group',
+    name: 'Khách theo nhóm',
+    icon: '👥',
+    color: 'yellow',
+    chance: 0.05,
+    spawnExtra: 1,       // Spawn thêm 1 khách cùng lúc
+    desc: 'Có nhóm bạn đi cùng',
+  },
+  {
+    id: 'vip',
+    name: 'Khách VIP',
+    icon: '👑',
+    color: 'yellow',
+    chance: 0.03,
+    moneyMul: 2.0,       // Trả gấp đôi
+    quytChance: 0,
+    waitOverride: 20,    // Chỉ chờ 20s
+    desc: 'Trả gấp đôi, chờ 20s',
+  },
+  {
+    id: 'foreign',
+    name: 'Khách nước ngoài',
+    icon: '🌐',
+    color: 'yellow',
+    chance: 0.04,
+    moneyMul: 1.5,
+    desc: '+50% tiền',
+  },
+  {
+    id: 'livestream',
+    name: 'Khách livestream',
+    icon: '📱',
+    color: 'yellow',
+    chance: 0.03,
+    moneyMul: 1.0,
+    repBonus: 20,
+    desc: '+20 danh tiếng',
+  },
+
+  // --- ĐẶC BIỆT (purple) ---
+  {
+    id: 'mystery',
+    name: 'Khách bí ẩn',
+    icon: '❓',
+    color: 'purple',
+    chance: 0.02,
+    moneyMul: 1.0,
+    mysteryNhan: true,   // Không hiện nhân, phải đoán
+    desc: 'Không rõ order!',
+  },
+  {
+    id: 'gold',
+    name: 'Khách trả vàng',
+    icon: '🥇',
+    color: 'purple',
+    chance: 0.01,
+    moneyMul: 1.0,
+    tipBonus: 500000,
+    quytChance: 0,
+    desc: 'Tip 500k!',
+  },
+];
+
+// ============================================================
+// 5. STAFF — Nhân viên
+// ============================================================
+const STAFF_INFO = [
+  {
+    key: 'chiTien',
+    name: 'Chị Tiến',
+    icon: '👩',
+    desc: 'Auto gói bánh',
+    reqLv: 2,
+    baseCost: 200000,
+    upgradeCost: 150000,
+    maxLevel: 5,
+  },
+  {
+    key: 'chiPhuong',
+    name: 'Chị Phương',
+    icon: '👩‍🦰',
+    desc: 'Auto chọn nhân',
+    reqLv: 4,
+    baseCost: 250000,
+    upgradeCost: 150000,
+    maxLevel: 5,
+  },
+  {
+    key: 'anhDuc',
+    name: 'Anh Đức',
+    icon: '👨',
+    desc: 'Auto giao khách',
+    reqLv: 6,
+    baseCost: 300000,
+    upgradeCost: 150000,
+    maxLevel: 5,
+  },
+  {
+    key: 'chiHuyen',
+    name: 'Chị Huyền',
+    icon: '👩‍🦱',
+    desc: 'Giảm quỵt 20%/lv',
+    reqLv: 8,
+    baseCost: 350000,
+    upgradeCost: 150000,
+    maxLevel: 5,
+  },
+];
+
+// Lương mỗi ngày = level * 50k
+const STAFF_SALARY_PER_LV = 50000;
+
+// ============================================================
+// 6. UPGRADES — Nâng cấp
+// ============================================================
+const UPGRADES = [
+  {
+    id: 'bake_speed',
+    name: 'Tay nghề nặn',
+    icon: '🤲',
+    desc: 'Nặn bánh nhanh hơn 10%/lv',
+    maxLevel: 5,
+    baseCost: 100000,
+    costMul: 1.8,      // Giá x1.8 mỗi cấp
+    effect: (lv) => 1 - lv * 0.1,  // Hệ số thời gian
+  },
+  {
+    id: 'pack_speed',
+    name: 'Tay nghề gói',
+    icon: '📦',
+    desc: 'Gói bánh nhanh hơn 10%/lv',
+    maxLevel: 5,
+    baseCost: 100000,
+    costMul: 1.8,
+    effect: (lv) => 1 - lv * 0.1,
+  },
+  {
+    id: 'quality',
+    name: 'Chất lượng cốm',
+    icon: '🍃',
+    desc: 'Bán bánh +5% giá/lv',
+    maxLevel: 5,
+    baseCost: 150000,
+    costMul: 1.8,
+    effect: (lv) => 1 + lv * 0.05,
+  },
+  {
+    id: 'more_tables',
+    name: 'Thêm bàn khách',
+    icon: '🪑',
+    desc: '+1 slot khách mỗi cấp',
+    maxLevel: 3,       // 4 → 7 bàn
+    baseCost: 300000,
+    costMul: 2.0,
+    effect: (lv) => lv,
+  },
+  {
+    id: 'patience',
+    name: 'Kiên nhẫn khách',
+    icon: '⏱️',
+    desc: 'Khách chờ lâu hơn 5s/lv',
+    maxLevel: 5,
+    baseCost: 200000,
+    costMul: 1.8,
+    effect: (lv) => lv * 5,
+  },
+];
+
+// ============================================================
+// 7. QUESTS — Nhiệm vụ hàng ngày (random 3 mỗi ngày)
+// ============================================================
+const QUEST_POOL = [
+  {
+    id: 'serve_5',
+    name: 'Phục vụ 5 khách',
+    target: 5,
+    reward: {money: 50000, xp: 20},
+    type: 'serve',
+  },
+  {
+    id: 'serve_10',
+    name: 'Phục vụ 10 khách',
+    target: 10,
+    reward: {money: 100000, xp: 40},
+    type: 'serve',
+  },
+  {
+    id: 'bake_3',
+    name: 'Làm 3 bánh cốm',
+    target: 3,
+    reward: {money: 60000, xp: 25},
+    type: 'bake',
+  },
+  {
+    id: 'bake_8',
+    name: 'Làm 8 bánh cốm',
+    target: 8,
+    reward: {money: 150000, xp: 60},
+    type: 'bake',
+  },
+  {
+    id: 'nhan_sau_rieng_2',
+    name: 'Làm 2 bánh sầu riêng',
+    target: 2,
+    reward: {money: 80000, xp: 30},
+    type: 'bake_nhan',
+    nhan: 'nhan_sau_rieng',
+  },
+  {
+    id: 'sell_tra_sua_2',
+    name: 'Bán 2 trà sữa cốm',
+    target: 2,
+    reward: {money: 40000, xp: 15},
+    type: 'sell',
+    item: 'tra_sua',
+  },
+  {
+    id: 'sell_phu_the_3',
+    name: 'Bán 3 phu thê',
+    target: 3,
+    reward: {money: 30000, xp: 15},
+    type: 'sell',
+    item: 'phu_the',
+  },
+  {
+    id: 'earn_200k',
+    name: 'Kiếm 200k',
+    target: 200000,
+    reward: {money: 50000, xp: 20},
+    type: 'earn_money',
+  },
+  {
+    id: 'no_quyt_5',
+    name: 'Phục vụ 5 khách không quỵt',
+    target: 5,
+    reward: {money: 70000, xp: 30},
+    type: 'serve_no_quyt',
+  },
+];
+
+// ============================================================
+// 8. ACHIEVEMENTS — Thành tích
+// ============================================================
+const ACHIEVEMENTS = [
+  {id: 'first_bake', name: 'Chiếc bánh đầu tiên', desc: 'Làm 1 bánh cốm', icon: '🍡', chk: () => state.records.totalBaked >= 1},
+  {id: 'bake_10',    name: 'Thợ bánh',            desc: 'Làm 10 bánh cốm', icon: '👨‍🍳', chk: () => state.records.totalBaked >= 10},
+  {id: 'bake_100',   name: 'Bậc thầy bánh cốm',   desc: 'Làm 100 bánh cốm', icon: '🏅', chk: () => state.records.totalBaked >= 100},
+  {id: 'bake_500',   name: 'Huyền thoại bánh',    desc: 'Làm 500 bánh cốm', icon: '👑', chk: () => state.records.totalBaked >= 500},
+  {id: 'money_1m',   name: 'Triệu phú',           desc: 'Đạt 1 triệu', icon: '💰', chk: () => state.money >= 1000000},
+  {id: 'money_10m',  name: 'Đại gia',             desc: 'Đạt 10 triệu', icon: '💎', chk: () => state.money >= 10000000},
+  {id: 'money_50m',  name: 'Tỷ phú',              desc: 'Đạt 50 triệu', icon: '🏦', chk: () => state.money >= 50000000},
+  {id: 'rep_50',     name: 'Nổi tiếng',           desc: 'Đạt 50 danh tiếng', icon: '⭐', chk: () => state.rep >= 50},
+  {id: 'rep_200',    name: 'Huyền thoại',         desc: 'Đạt 200 danh tiếng', icon: '🌟', chk: () => state.rep >= 200},
+  {id: 'rep_500',    name: 'Thánh bánh',          desc: 'Đạt 500 danh tiếng', icon: '✨', chk: () => state.rep >= 500},
+  {id: 'day_10',     name: 'Bền bỉ',              desc: 'Sống sót 10 ngày', icon: '📅', chk: () => state.day >= 10},
+  {id: 'day_20',     name: 'Kiên trì',            desc: 'Sống sót 20 ngày', icon: '🗓️', chk: () => state.day >= 20},
+  {id: 'day_30',     name: 'Trường tồn',          desc: 'Hoàn thành 30 ngày', icon: '🏆', chk: () => state.day >= 30},
+  {id: 'staff_all',  name: 'Ông chủ',             desc: 'Thuê đủ 4 nhân viên', icon: '👔', chk: () => {
+    const s = state.staff;
+    return s.chiTien.unlocked && s.chiPhuong.unlocked && s.anhDuc.unlocked && s.chiHuyen.unlocked;
+  }},
+  {id: 'staff_max',  name: 'Đội ngũ vàng',        desc: 'Max cấp 1 nhân viên', icon: '🥇', chk: () => {
+    const s = state.staff;
+    return s.chiTien.level >= 5 || s.chiPhuong.level >= 5 || s.anhDuc.level >= 5 || s.chiHuyen.level >= 5;
+  }},
+  {id: 'upgrade_5',  name: 'Nâng cấp thần tốc',   desc: 'Nâng cấp 5 lần', icon: '⬆️', chk: () => {
+    let total = 0;
+    const u = state.upgrades;
+    Object.keys(u).forEach(k => total += u[k]);
+    return total >= 5;
+  }},
+  {id: 'cus_50',     name: 'Đông khách',          desc: 'Phục vụ 50 khách', icon: '👥', chk: () => state.records.totalCustomers >= 50},
+  {id: 'cus_200',    name: 'Quá tải',             desc: 'Phục vụ 200 khách', icon: '🔥', chk: () => state.records.totalCustomers >= 200},
+  {id: 'no_quyt_10', name: 'Uy tín vàng',         desc: '10 khách không quỵt liên tiếp', icon: '🛡️', chk: () => state.records.noQuytStreak >= 10},
+];
+
+// ============================================================
+// 9. STATE — Trạng thái game
+// ============================================================
+const state = {
+  // Cấp & tiền
+  lv: 1,
+  xp: 0,
+  money: 100000,
+  rep: 0,
+
+  // Thời gian
+  day: 1,
+  time: CFG.DAY_START * 60,  // phút
+  chapter: 0,
+
+  // Khách
+  customers: new Array(CFG.MAX_TABLES_BASE).fill(null),
+  selectedTable: -1,
+  customerIdCounter: 0,
+  maxTables: CFG.MAX_TABLES_BASE,
+
+  // Làm bánh
+  baking: {
+    active: false,
+    step: 0,          // 0=idle, 1=nặn, 2=nhân, 3=gói, 4=giao
+    progress: 0,
+    nhan: 'nhan_none',
+    locked: false,
+    need2Banh: false,
+    banhDone: 0,
+  },
+
+  // Kho
+  inventory: {
+    bot_nep: 0,
+    nhan_dau_xanh: 0,
+    nhan_sau_rieng: 0,
+    nhan_xa_xiu: 0,
+    phu_the: 0,
+    pia: 0,
+    banh_cha: 0,
+    khao: 0,
+    keo_lac: 0,
+    tra_sua: 0,
+  },
+
+  // Nhân viên
+  staff: {
+    chiTien:   {unlocked: false, level: 0, active: false},
+    chiPhuong: {unlocked: false, level: 0, active: false},
+    anhDuc:    {unlocked: false, level: 0, active: false},
+    chiHuyen:  {unlocked: false, level: 0, active: false},
+  },
+
+  // Nâng cấp
+  upgrades: {
+    bake_speed: 0,
+    pack_speed: 0,
+    quality: 0,
+    more_tables: 0,
+    patience: 0,
+  },
+
+  // Nhiệm vụ hôm nay
+  quests: [],
+  questProgress: {},
+
+  // Achievements
+  achievements: {},
+
+  // Records
+  records: {
+    maxDay: 1,
+    maxMoney: 0,
+    maxRep: 0,
+    totalCustomers: 0,
+    totalBaked: 0,
+    noQuytStreak: 0,
+  },
+
+  // Settings
+  settings: {
+    sound: true,
+  },
+
+  // Event system
+  currentEvent: null,      // 'rush' | 'slow' | null
+  eventTimer: 0,
+  lastEventCheck: 0,
+  lastSisterTime: 0,
+  lastSpawnTime: 0,
+
+  // Loop
+  running: false,
+  saveAcc: 0,
+
+  // Win
+  won: false,
+};
+
+// ============================================================
+// 10. GAME STORAGE KEY
+// ============================================================
+const SAVE_KEY = 'baominh_v2';
+
+// ============================================================
+// ============================================================
+// 11. UTILITIES — Hàm tiện ích
+// ============================================================
+function fmtMoney(n){
+  if(n >= 1000000) return (n/1000000).toFixed(1) + 'tr';
+  if(n >= 1000) return Math.round(n/1000) + 'k';
+  return String(Math.round(n));
+}
+
+function fmtTime(min){
+  const h = Math.floor(min/60) % 24;
+  const m = Math.floor(min%60);
+  return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+}
+
+function randInt(a, b){
+  return Math.floor(Math.random()*(b-a+1)) + a;
+}
+
+function pick(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+// Roll event theo % chance
+function rollEvent(){
+  let roll = Math.random();
+  let cum = 0;
+  for(let i = 0; i < EVENTS.length; i++){
+    cum += EVENTS[i].chance;
+    if(roll < cum) return EVENTS[i];
+  }
+  return null; // Không có event đặc biệt
+}
+
+// Tính % giảm quỵt từ nhân viên
+function getQuytReduce(){
+  const hv = state.staff.chiHuyen;
+  if(!hv.active || hv.level === 0) return 0;
+  return Math.min(0.8, 0.2 * hv.level); // Tối đa giảm 80%
+}
+
+// Tính thời gian nặn bánh (có nâng cấp)
+function getBakeTime(){
+  const lv = state.upgrades.bake_speed;
+  const mul = 1 - lv * 0.1;
+  return CFG.BAKE_TIME * Math.max(0.4, mul);
+}
+
+// Tính thời gian gói bánh (có nâng cấp)
+function getPackTime(){
+  const lv = state.upgrades.pack_speed;
+  const mul = 1 - lv * 0.1;
+  return CFG.PACK_TIME * Math.max(0.4, mul);
+}
+
+// Tính hệ số giá bán (có nâng cấp quality)
+function getPriceMul(){
+  const lv = state.upgrades.quality;
+  return 1 + lv * 0.05;
+}
+
+// Tính thời gian chờ khách (có nâng cấp patience)
+function getWaitTime(){
+  const lv = state.upgrades.patience;
+  return CFG.CUSTOMER_WAIT + lv * 5;
+}
+
+// Số bàn tối đa hiện tại
+function getMaxTables(){
+  return CFG.MAX_TABLES_BASE + state.upgrades.more_tables;
+}
+
+// ============================================================
+// 12. BAKING — Làm bánh cốm
+// ============================================================
+function startBaking(){
+  const b = state.baking;
+  if(b.active) return;
+
+  // Check bột nếp
+  if(state.inventory.bot_nep <= 0){
+    toast('❌ Hết bột nếp! Mua ở Cửa hàng');
+    beep(200, 0.15, 'sawtooth');
+    return;
+  }
+
+  // Trừ 1 bột
+  state.inventory.bot_nep--;
+
+  b.active = true;
+  b.step = 1;
+  b.progress = 0;
+  b.nhan = 'nhan_none';
+  b.locked = false;
+  b.need2Banh = false;
+  b.banhDone = 0;
+
+  addLog('🤲 Bắt đầu nặn bánh');
+  beep(440, 0.08);
+  renderBakeAnim(true);
+  renderSteps(true);
+}
+
+function advanceBaking(){
+  const b = state.baking;
+  if(!b.active) return;
+
+  if(b.step === 1){
+    // Nặn xong → chuyển sang chọn nhân
+    b.step = 2;
+    b.progress = 0;
+    renderBakeAnim(true);
+    renderSteps(true);
+    // Hiện nhan area (đã hiện sẵn, chỉ cần update selected)
+  }
+  else if(b.step === 2){
+    // Đã chọn nhân → chuyển sang gói
+    // Check nhân có trong kho (trừ khi none)
+    if(b.nhan !== 'nhan_none'){
+      if(state.inventory[b.nhan] <= 0){
+        toast('❌ Hết nhân ' + ITEMS[b.nhan].name + '!');
+        beep(200, 0.15, 'sawtooth');
+        return;
+      }
+      state.inventory[b.nhan]--;
+    }
+
+    b.step = 3;
+    b.progress = 0;
+    b.locked = true;
+    renderBakeAnim(true);
+    renderSteps(true);
+    addLog('📦 Đang gói bánh (' + ITEMS[b.nhan].name + ')');
+  }
+  else if(b.step === 3){
+    // Gói xong → sẵn sàng giao
+    b.step = 4;
+    b.progress = 0;
+    b.locked = false;
+    renderBakeAnim(true);
+    renderSteps(true);
+    addLog('🎁 Bánh sẵn sàng giao');
+  }
+}
+
+function resetBaking(){
+  const b = state.baking;
+  // Nếu đang nặn mà reset → không hoàn bột (mất nguyên liệu)
+  // Nếu đã qua bước 2 mà reset → không hoàn nhân
+  b.active = false;
+  b.step = 0;
+  b.progress = 0;
+  b.nhan = 'nhan_none';
+  b.locked = false;
+  b.need2Banh = false;
+  b.banhDone = 0;
+  renderBakeAnim(true);
+  renderSteps(true);
+  renderNhanGrid(true);
+  toast('🔄 Đã reset');
+}
+
+function completeBaking(){
+  const b = state.baking;
+  if(!b.active || b.step !== 4) return;
+
+  // Check có khách đang chọn không
+  if(state.selectedTable === -1){
+    toast('Chọn khách trước!');
+    beep(200, 0.1, 'sawtooth');
+    return;
+  }
+
+  const c = state.customers[state.selectedTable];
+  if(!c || c.satisfied){
+    toast('Không có khách!');
+    return;
+  }
+
+  // Check nhân đúng
+  if(c.order.nhan !== b.nhan){
+    toast('❌ Sai nhân! Khách không nhận');
+    beep(200, 0.15, 'sawtooth');
+    addLog('❌ Sai nhân cho ' + c.name);
+    resetBaking();
+    return;
+  }
+
+  // Giao thành công
+  c.done.banhCom = true;
+  state.records.totalBaked++;
+  addLog('🎁 Giao bánh cốm cho ' + c.name);
+  beep(880, 0.1, 'sine');
+
+  // Reset baking
+  const wasNeed2 = b.need2Banh;
+  resetBaking();
+
+  // Nếu khách cần 2 bánh → tự động bắt đầu nặn cái 2
+  if(wasNeed2 && c.done.banhComCount < 2){
+    // Đánh dấu đã giao 1, cần giao thêm 1
+    c.done.banhComCount = (c.done.banhComCount || 0) + 1;
+    if(c.done.banhComCount < 2){
+      c.done.banhCom = false; // Reset để làm tiếp
+      toast('🎁 Cần thêm 1 bánh nữa!');
+    }
+  }
+
+  renderTable(state.selectedTable, true);
+  checkCustomerDone(state.selectedTable);
+  checkAchievements();
+}
+
+// ============================================================
+// 13. CUSTOMER — Khách hàng
+// ============================================================
+function createCustomer(){
+  // Roll event
+  const event = rollEvent();
+
+  const c = {
+    id: ++state.customerIdCounter,
+    name: pick(['Khách', 'Cô Lan', 'Bác Hùng', 'Chị Mai', 'Anh Tuấn', 'Em Linh', 'Ông Bảy', 'Bà Tư', 'Chú Nam', 'Cô Hoa']),
+    icon: pick(['🧑','👩','👨','👧','👦','🧓','👵','👴']),
+    event: event,
+    order: null,
+    wait: getWaitTime(),
+    maxWait: getWaitTime(),
+    done: {banhCom: false, banhComCount: 0, extras: []},
+    satisfied: false,
+    moneyMul: 1,
+    quytChance: CFG.QUYT_CHANCE,
+    tipBonus: 0,
+    repBonus: 0,
+    repPenalty: 0,
+    need2Banh: false,
+    mysteryNhan: false,
+  };
+
+  // Áp dụng hiệu ứng event
+  if(event){
+    if(event.moneyMul) c.moneyMul = event.moneyMul;
+    if(event.quytChance !== undefined) c.quytChance = event.quytChance;
+    if(event.tipBonus) c.tipBonus = event.tipBonus;
+    if(event.repBonus) c.repBonus = event.repBonus;
+    if(event.repPenalty) c.repPenalty = event.repPenalty;
+    if(event.waitBonus) {
+      c.wait += event.waitBonus;
+      c.maxWait += event.waitBonus;
+    }
+    if(event.waitOverride) {
+      c.wait = event.waitOverride;
+      c.maxWait = event.waitOverride;
+    }
+    if(event.need2Banh) c.need2Banh = true;
+    if(event.mysteryNhan) c.mysteryNhan = true;
+  }
+
+  // Tạo order
+  const nhanKeys = ['nhan_dau_xanh', 'nhan_sau_rieng', 'nhan_xa_xiu', 'nhan_none'];
+  const nhan = pick(nhanKeys);
+
+  // Số món phụ: 0-3, + extra từ event
+  let extraCount = randInt(0, 3);
+  if(event && event.extraItems) extraCount += event.extraItems;
+  extraCount = Math.min(extraCount, 5); // Max 5 món phụ
+
+  const extras = [];
+  for(let i = 0; i < extraCount; i++){
+    extras.push(pick(MON_SAN_KEYS));
+  }
+
+  c.order = {
+    nhan: nhan,
+    extras: extras,
+  };
+
+  c.done.extras = new Array(extras.length).fill(false);
+
+  return c;
+}
+
+function spawnCustomer(){
+  // Tìm slot trống
+  let idx = -1;
+  const maxT = getMaxTables();
+  for(let i = 0; i < maxT; i++){
+    if(!state.customers[i]){
+      idx = i;
+      break;
+    }
+  }
+  if(idx === -1) return;
+
+  const c = createCustomer();
+  state.customers[idx] = c;
+  state.lastSpawnTime = 0;
+
+  renderTable(idx, true);
+
+  // Toast thông báo event
+  if(c.event){
+    toast(c.event.icon + ' ' + c.event.name + ': ' + c.event.desc, 2500);
+    addLog('👤 ' + c.name + ' (' + c.event.name + ') đến');
+  } else {
+    addLog('👤 ' + c.name + ' đến');
+  }
+
+  // Event "group": spawn thêm 1 khách
+  if(c.event && c.event.spawnExtra){
+    for(let i = 0; i < c.event.spawnExtra; i++){
+      setT(() => {
+        if(state.customers.filter(x => x && !x.satisfied).length < maxT){
+          spawnCustomer();
+        }
+      }, 500 + i * 300);
+    }
+  }
+}
+
+function removeCustomer(idx){
+  const c = state.customers[idx];
+  if(c) addLog('👋 ' + c.name + ' rời đi');
+  state.customers[idx] = null;
+
+  if(state.selectedTable === idx){
+    state.selectedTable = -1;
+    renderOrderBar(true);
+  }
+  renderTable(idx, true);
+}
+
+function serveCustomer(idx){
+  const c = state.customers[idx];
+  if(!c || c.satisfied) return;
+
+  // Tính tiền
+  let total = CFG.BASE_PRICE_BANHCOM * getPriceMul();
+  total += ITEMS[c.order.nhan].price;
+  for(let i = 0; i < c.order.extras.length; i++){
+    if(c.done.extras[i]){
+      total += ITEMS[c.order.extras[i]].price;
+    }
+  }
+
+  // Áp dụng moneyMul
+  total = total * c.moneyMul;
+
+  // Tip bonus
+  if(c.tipBonus) total += c.tipBonus;
+
+  // Roll quỵt
+  let quyt = false;
+  if(Math.random() < c.quytChance){
+    const reduce = getQuytReduce();
+    if(Math.random() >= reduce) quyt = true;
+  }
+
+  if(quyt){
+    addLog('💸 ' + c.name + ' quỵt!');
+    toast('💸 ' + c.name + ' quỵt!');
+    beep(200, 0.2, 'sawtooth');
+    total = 0;
+    state.records.noQuytStreak = 0;
+  } else {
+    state.money += Math.round(total);
+    beep(1200, 0.1, 'sine');
+    state.records.noQuytStreak++;
+    addLog('✅ ' + c.name + ' trả ' + fmtMoney(total));
+    toast('✅ +' + fmtMoney(total));
+  }
+
+  // Danh tiếng
+  let repGain = CFG.BASE_REP;
+  if(c.order.nhan !== 'nhan_none') repGain += 1;
+  repGain += c.order.extras.length;
+  if(c.repBonus) repGain += c.repBonus;
+
+  // Nếu khách phàn nàn và chờ >20s → phạt
+  if(c.repPenalty && c.wait < c.maxWait - 10){
+    repGain -= c.repPenalty;
+  }
+
+  state.rep = Math.max(0, state.rep + repGain);
+
+  // XP
+  addXP(10 + repGain * 2);
+
+  // Cập nhật records
+  state.records.totalCustomers++;
+
+  // Cập nhật quest
+  updateQuestProgress('serve', 1);
+  if(!quyt) updateQuestProgress('serve_no_quyt', 1);
+  updateQuestProgress('earn_money', Math.round(total));
+
+  // Đánh dấu hài lòng
+  c.satisfied = true;
+  renderTable(idx, true);
+  renderOrderBar(true);
+
+  // Xóa sau 500ms
+  setT(() => removeCustomer(idx), 500);
+
+  checkAchievements();
+}
+
+function checkCustomerDone(idx){
+  const c = state.customers[idx];
+  if(!c || c.satisfied) return;
+
+  // Check bánh cốm
+  const needBanh = c.need2Banh ? 2 : 1;
+  if((c.done.banhComCount || 0) < needBanh && !c.done.banhCom) return;
+
+  // Check món phụ
+  for(let i = 0; i < c.done.extras.length; i++){
+    if(!c.done.extras[i]) return;
+  }
+
+  serveCustomer(idx);
+}
+
+// ============================================================
+// 14. SELL PREMADE — Bán món mua sẵn
+// ============================================================
+function sellPremade(key){
+  if(state.selectedTable === -1){
+    toast('Chọn khách trước!');
+    beep(200, 0.1);
+    return;
+  }
+
+  const c = state.customers[state.selectedTable];
+  if(!c || c.satisfied){
+    toast('Không có khách!');
+    return;
+  }
+
+  // Check khách có order món này không
+  let found = -1;
+  for(let i = 0; i < c.order.extras.length; i++){
+    if(c.order.extras[i] === key && !c.done.extras[i]){
+      found = i;
+      break;
+    }
+  }
+  if(found === -1){
+    toast('Khách không order món này!');
+    beep(200, 0.1);
+    return;
+  }
+
+  // Check kho
+  if(state.inventory[key] <= 0){
+    toast('❌ Hết ' + ITEMS[key].name + '! Mua thêm');
+    beep(200, 0.1, 'sawtooth');
+    return;
+  }
+
+  // Trừ kho
+  state.inventory[key]--;
+
+  // Đánh dấu done
+  c.done.extras[found] = true;
+
+  // Cộng tiền ngay
+  const earn = Math.round(ITEMS[key].price * getPriceMul());
+  state.money += earn;
+  beep(1200, 0.08, 'sine');
+  addLog('💰 Bán ' + ITEMS[key].name);
+  toast('💰 +' + fmtMoney(earn));
+
+  // Quest
+  updateQuestProgress('sell', 1, key);
+
+  // Render
+  renderOrderBar(false);
+  renderTable(state.selectedTable, true);
+  renderTray(true);
+
+  checkCustomerDone(state.selectedTable);
+  checkAchievements();
+}
+
+// ============================================================
+// 15. STAFF — Nhân viên
+// ============================================================
+function getStaffCost(info){
+  const s = state.staff[info.key];
+  if(!s.unlocked) return info.baseCost;
+  return info.upgradeCost;
+}
+
+function unlockStaff(key){
+  const info = STAFF_INFO.find(x => x.key === key);
+  if(!info) return;
+  const s = state.staff[key];
+
+  if(!s.unlocked && state.lv < info.reqLv){
+    toast('Cần Lv' + info.reqLv);
+    return;
+  }
+
+  const cost = getStaffCost(info);
+  if(state.money < cost){
+    toast('Không đủ tiền!');
+    beep(200, 0.1);
+    return;
+  }
+
+  state.money -= cost;
+
+  if(!s.unlocked){
+    s.unlocked = true;
+    s.level = 1;
+    s.active = true;
+    addLog('👥 Thuê ' + info.name);
+    toast('👥 Đã thuê ' + info.name);
+  } else {
+    if(s.level >= info.maxLevel){
+      toast('Đã max cấp!');
+      return;
+    }
+    s.level++;
+    addLog('⬆️ ' + info.name + ' lên Lv' + s.level);
+    toast('⬆️ ' + info.name + ' Lv' + s.level);
+  }
+
+  beep(1200, 0.1, 'sine');
+  renderStaffPanel();
+  renderHeader();
+  checkAchievements();
+}
+
+function payStaffSalary(){
+  let total = 0;
+  const keys = Object.keys(state.staff);
+  for(let i = 0; i < keys.length; i++){
+    const s = state.staff[keys[i]];
+    if(s.active && s.unlocked){
+      total += STAFF_SALARY_PER_LV * s.level;
+    }
+  }
+
+  if(total <= 0) return;
+
+  if(state.money >= total){
+    state.money -= total;
+    addLog('💼 Trả lương NV -' + fmtMoney(total));
+  } else {
+    // Hết tiền → NV nghỉ
+    for(let i = 0; i < keys.length; i++){
+      const s = state.staff[keys[i]];
+      if(s.active && s.unlocked){
+        s.active = false;
+        const info = STAFF_INFO.find(x => x.key === keys[i]);
+        addLog('❌ ' + info.name + ' nghỉ vì hết lương');
+      }
+    }
+    toast('❌ Nhân viên nghỉ vì hết lương!');
+  }
+  renderHeader();
+}
+
+// ============================================================
+// 16. UPGRADES — Nâng cấp
+// ============================================================
+function getUpgradeCost(upg){
+  const lv = state.upgrades[upg.id];
+  return Math.round(upg.baseCost * Math.pow(upg.costMul, lv));
+}
+
+function buyUpgrade(id){
+  const upg = UPGRADES.find(u => u.id === id);
+  if(!upg) return;
+
+  const lv = state.upgrades[id];
+  if(lv >= upg.maxLevel){
+    toast('Đã max cấp!');
+    return;
+  }
+
+  const cost = getUpgradeCost(upg);
+  if(state.money < cost){
+    toast('Không đủ tiền!');
+    beep(200, 0.1);
+    return;
+  }
+
+  state.money -= cost;
+  state.upgrades[id]++;
+
+  // Áp dụng hiệu ứng đặc biệt
+  if(id === 'more_tables'){
+    // Mở rộng mảng customers
+    const newMax = CFG.MAX_TABLES_BASE + state.upgrades.more_tables;
+    while(state.customers.length < newMax){
+      state.customers.push(null);
+    }
+  }
+
+  addLog('⬆️ Nâng cấp ' + upg.name + ' Lv' + state.upgrades[id]);
+  toast('⬆️ ' + upg.name + ' Lv' + state.upgrades[id]);
+  beep(1200, 0.1, 'sine');
+
+  renderUpgradePanel();
+  renderHeader();
+  renderTablesRow(); // Rebuild nếu thêm bàn
+  checkAchievements();
+}
+
+// ============================================================
+// 17. INVENTORY — Mua hàng
+// ============================================================
+function buyItem(key){
+  const item = ITEMS[key];
+  if(!item) return;
+
+  if(state.money < item.buyPrice){
+    toast('Không đủ tiền!');
+    beep(200, 0.1);
+    return;
+  }
+
+  state.money -= item.buyPrice;
+  state.inventory[key] = (state.inventory[key] || 0) + item.buyQty;
+
+  toast('🛒 Mua ' + item.buyQty + ' ' + item.name);
+  beep(1000, 0.08, 'sine');
+  addLog('🛒 Mua ' + item.buyQty + ' ' + item.name + ' -' + fmtMoney(item.buyPrice));
+
+  renderShopPanel();
+  renderTray(true);
+  renderHeader();
+}
+
+// ============================================================
+// 18. QUESTS — Nhiệm vụ
+// ============================================================
+function generateDailyQuests(){
+  // Random 3 quest
+  const pool = [...QUEST_POOL];
+  const picked = [];
+  for(let i = 0; i < 3 && pool.length > 0; i++){
+    const idx = Math.floor(Math.random() * pool.length);
+    picked.push(pool.splice(idx, 1)[0]);
+  }
+
+  state.quests = picked.map(q => ({
+    id: q.id,
+    name: q.name,
+    target: q.target,
+    reward: q.reward,
+    type: q.type,
+    nhan: q.nhan,
+    item: q.item,
+    progress: 0,
+    done: false,
+    claimed: false,
+  }));
+
+  state.questProgress = {};
+  addLog('📋 Nhiệm vụ mới');
+}
+
+function updateQuestProgress(type, amount, item){
+  let changed = false;
+  for(let i = 0; i < state.quests.length; i++){
+    const q = state.quests[i];
+    if(q.done) continue;
+    if(q.type !== type) continue;
+    if(q.item && q.item !== item) continue;
+    if(q.nhan && q.nhan !== state.baking.nhan) continue;
+
+    q.progress += amount;
+    if(q.progress >= q.target){
+      q.progress = q.target;
+      q.done = true;
+      addLog('✅ Hoàn thành: ' + q.name);
+      toast('✅ ' + q.name);
+      beep(1400, 0.15, 'sine');
+    }
+    changed = true;
+  }
+  if(changed) renderQuestPanel();
+}
+
+function claimQuest(idx){
+  const q = state.quests[idx];
+  if(!q || !q.done || q.claimed) return;
+
+  q.claimed = true;
+  state.money += q.reward.money;
+  addXP(q.reward.xp);
+
+  toast('🎁 +' + fmtMoney(q.reward.money) + ' +' + q.reward.xp + ' XP');
+  beep(1400, 0.15, 'sine');
+  addLog('🎁 Nhận thưởng: ' + q.name);
+
+  renderQuestPanel();
+  renderHeader();
+}
+
+// ============================================================
+// 19. ACHIEVEMENTS
+// ============================================================
+function checkAchievements(){
+  for(let i = 0; i < ACHIEVEMENTS.length; i++){
+    const a = ACHIEVEMENTS[i];
+    if(state.achievements[a.id]) continue;
+    if(a.chk()){
+      state.achievements[a.id] = true;
+      toast('🏆 ' + a.name);
+      addLog('🏆 Thành tích: ' + a.name);
+      beep(1400, 0.15, 'sine');
+    }
+  }
+}
+
+// ============================================================
+// 20. LEVEL & XP
+// ============================================================
+function addXP(amount){
+  state.xp += amount;
+
+  while(state.xp >= CFG.XP_PER_LV && state.lv < CFG.MAX_LV){
+    state.xp -= CFG.XP_PER_LV;
+    state.lv++;
+    addLog('⬆️ Lên cấp ' + state.lv);
+    toast('⬆️ Lên Lv' + state.lv);
+    beep(880, 0.15, 'sine');
+
+    // Check chương
+    for(let i = CHAPTERS.length - 1; i >= 0; i--){
+      if(state.lv >= CHAPTERS[i].lvMin && state.chapter !== i){
+        state.chapter = i;
+        addLog('📍 Chương ' + (i+1) + ': ' + CHAPTERS[i].name);
+        toast('📍 ' + CHAPTERS[i].name);
+        break;
+      }
+    }
+  }
+
+  checkAchievements();
+}
+
+// ============================================================
+// 21. EVENT SYSTEM — Giờ cao điểm / vắng
+// ============================================================
+function checkRandomEvent(dt){
+  state.lastEventCheck += dt;
+
+  // Nếu đang có event → đếm ngược
+  if(state.currentEvent){
+    state.eventTimer -= dt;
+    if(state.eventTimer <= 0){
+      state.currentEvent = null;
+      state.eventTimer = 0;
+      addLog('📊 Giờ bình thường');
+    }
+    return;
+  }
+
+  // Check mỗi 30s
+  if(state.lastEventCheck < 30) return;
+  state.lastEventCheck = 0;
+
+  // 15% cơ hội có event
+  if(Math.random() > 0.15) return;
+
+  const roll = Math.random();
+  if(roll < 0.5){
+    state.currentEvent = 'rush';
+    state.eventTimer = randInt(180, 300); // 3-5 phút game
+    toast('🔥 Giờ cao điểm! Khách đông', 2500);
+    addLog('🔥 Giờ cao điểm bắt đầu');
+  } else {
+    state.currentEvent = 'slow';
+    state.eventTimer = randInt(180, 300);
+    toast('😴 Giờ vắng khách', 2500);
+    addLog('😴 Giờ vắng bắt đầu');
+  }
+}
+
+function getSpawnInterval(){
+  let min = CFG.SPAWN_MIN;
+  let max = CFG.SPAWN_MAX;
+
+  if(state.currentEvent === 'rush'){
+    min *= 0.4;
+    max *= 0.5;
+  } else if(state.currentEvent === 'slow'){
+    min *= 2;
+    max *= 2.5;
+  }
+
+  return min + Math.random() * (max - min);
+}
+
+// ============================================================
+// 22. SAVE / LOAD
+// ============================================================
+function saveGame(){
+  try{
+    const save = {
+      lv: state.lv,
+      xp: state.xp,
+      money: state.money,
+      rep: state.rep,
+      day: state.day,
+      time: state.time,
+      chapter: state.chapter,
+      inventory: state.inventory,
+      staff: state.staff,
+      upgrades: state.upgrades,
+      quests: state.quests,
+      questProgress: state.questProgress,
+      achievements: state.achievements,
+      records: state.records,
+      settings: state.settings,
+      customerIdCounter: state.customerIdCounter,
+    };
+    localStorage.setItem(SAVE_KEY, JSON.stringify(save));
+  }catch(e){}
+}
+
+function loadGame(){
+  try{
+    const raw = localStorage.getItem(SAVE_KEY);
+    if(!raw) return false;
+    const save = JSON.parse(raw);
+    Object.assign(state, save);
+
+    // Đảm bảo mảng customers đúng kích thước
+    const maxT = getMaxTables();
+    state.customers = new Array(Math.max(maxT, CFG.MAX_TABLES_BASE)).fill(null);
+    state.selectedTable = -1;
+
+    // Reset baking
+    state.baking = {
+      active: false, step: 0, progress: 0,
+      nhan: 'nhan_none', locked: false,
+      need2Banh: false, banhDone: 0,
+    };
+
+    // Đảm bảo có đủ field
+    if(!state.inventory) state.inventory = {};
+    if(!state.achievements) state.achievements = {};
+    if(!state.records) state.records = {maxDay:1, maxMoney:0, maxRep:0, totalCustomers:0, totalBaked:0, noQuytStreak:0};
+    if(!state.settings) state.settings = {sound:true};
+    if(!state.quests || state.quests.length === 0) generateDailyQuests();
+
+    state.running = false;
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+function resetGame(){
+  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
+
+  state.lv = 1;
+  state.xp = 0;
+  state.money = 100000;
+  state.rep = 0;
+  state.day = 1;
+  state.time = CFG.DAY_START * 60;
+  state.chapter = 0;
+  state.customers = new Array(CFG.MAX_TABLES_BASE).fill(null);
+  state.selectedTable = -1;
+  state.customerIdCounter = 0;
+  state.baking = {
+    active: false, step: 0, progress: 0,
+    nhan: 'nhan_none', locked: false,
+    need2Banh: false, banhDone: 0,
+  };
+  state.inventory = {
+    bot_nep: 5,
+    nhan_dau_xanh: 0,
+    nhan_sau_rieng: 0,
+    nhan_xa_xiu: 0,
+    phu_the: 0,
+    pia: 0,
+    banh_cha: 0,
+    khao: 0,
+    keo_lac: 0,
+    tra_sua: 0,
+  };
+  state.staff = {
+    chiTien:   {unlocked: false, level: 0, active: false},
+    chiPhuong: {unlocked: false, level: 0, active: false},
+    anhDuc:    {unlocked: false, level: 0, active: false},
+    chiHuyen:  {unlocked: false, level: 0, active: false},
+  };
+  state.upgrades = {
+    bake_speed: 0, pack_speed: 0, quality: 0,
+    more_tables: 0, patience: 0,
+  };
+  state.questProgress = {};
+  state.achievements = {};
+  state.records = {
+    maxDay: 1, maxMoney: 0, maxRep: 0,
+    totalCustomers: 0, totalBaked: 0, noQuytStreak: 0,
+  };
+  state.settings = {sound: true};
+  state.currentEvent = null;
+  state.eventTimer = 0;
+  state.lastEventCheck = 0;
+  state.lastSisterTime = 0;
+  state.lastSpawnTime = 0;
+  state.saveAcc = 0;
+  state.won = false;
+
+  generateDailyQuests();
+}
+
+// ============================================================
+// 23. DAY END
+// ============================================================
+function endDay(){
+  addLog('🌙 Kết thúc ngày ' + state.day);
+
+  // Trả lương
+  payStaffSalary();
+
+  // Sang ngày mới
+  state.day++;
+  state.time = CFG.DAY_START * 60;
+
+  // Clear khách
+  state.customers = new Array(Math.max(getMaxTables(), CFG.MAX_TABLES_BASE)).fill(null);
+  state.selectedTable = -1;
+
+  // Reset baking
+  state.baking = {
+    active: false, step: 0, progress: 0,
+    nhan: 'nhan_none', locked: false,
+    need2Banh: false, banhDone: 0,
+  };
+
+  // Reset event
+  state.currentEvent = null;
+  state.eventTimer = 0;
+
+  // Nhiệm vụ mới
+  generateDailyQuests();
+
+  if(state.day > CFG.MAX_DAYS){
+    state.won = true;
+    addLog('🎉 HOÀN THÀNH 30 NGÀY!');
+    toast('🎉 CHIẾN THẮNG!', 3000);
+    stopLoop();
+    return;
+  }
+
+  addLog('☀️ Bắt đầu ngày ' + state.day);
+  toast('☀️ Ngày ' + state.day);
+  saveGame();
+}
+
+// ============================================================
+// ============================================================
+// 24. DOM CACHE — Query 1 lần
+// ============================================================
 const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
 const dom = {
-  lv:$('#ui-lv'),money:$('#ui-money'),rep:$('#ui-rep'),
-  day:$('#ui-day'),time:$('#ui-time'),
-  scene:$('#scene'),
-  orderContent:$('#order-content'),
-  nhanSelector:$('#nhan-selector'),
-  tray:$('#tray'),
-  toast:$('#toast'),
-  resetBake:$('#btn-reset-bake'),
+  lv: $('#ui-lv'),
+  money: $('#ui-money'),
+  rep: $('#ui-rep'),
+  day: $('#ui-day'),
+  time: $('#ui-time'),
+  scene: $('#customers-row'),
+  rushIndicator: $('#rush-indicator'),
+  orderContent: $('#order-content'),
+  bakeAnim: $('#bake-anim'),
+  animIcon: $('#bake-anim .anim-icon'),
+  animStatus: $('#bake-anim .anim-status'),
+  animBarFill: $('#bake-anim .anim-bar-fill'),
+  animTimer: $('#bake-anim .anim-timer'),
+  nhanGrid: $('#nhan-grid'),
+  tray: $('#tray'),
+  resetBake: $('#btn-reset-bake'),
+  toast: $('#toast'),
 };
+
 const tableEls = [];
-document.querySelectorAll('.table').forEach((el,i)=>{
+$$('.table').forEach((el, i) => {
   tableEls.push({
-    root:el,
-    icon:el.querySelector('.khach-icon'),
-    name:el.querySelector('.khach-name'),
-    badge:el.querySelector('.order-badge'),
-    timer:el.querySelector('.timer-bar'),
-    idx:i,
+    root: el,
+    eventIcon: el.querySelector('.event-icon'),
+    icon: el.querySelector('.khach-icon'),
+    name: el.querySelector('.khach-name'),
+    badge: el.querySelector('.order-badge'),
+    timer: el.querySelector('.timer-bar'),
+    idx: i,
   });
 });
+
 const stepEls = [];
-document.querySelectorAll('.step').forEach((el,i)=>{
+$$('.step').forEach((el, i) => {
   stepEls.push({
-    root:el,
-    ring:el.querySelector('.progress-ring'),
-    idx:i+1,
+    root: el,
+    ring: el.querySelector('.progress-ring'),
+    idx: i + 1,
   });
 });
-const nhanBtnEls = [];
-document.querySelectorAll('.nhan-btn').forEach(el=>{
-  nhanBtnEls.push({root:el,key:el.dataset.nhan});
-});
-const trayBtnEls = [];
-document.querySelectorAll('.tray-item').forEach(el=>{
-  trayBtnEls.push({root:el,key:el.dataset.item});
-});
 
-const uiCache = {lv:0,money:0,rep:0,day:0,time:'',chapter:-1};
+// Cache để tránh set text trùng
+const uiCache = {
+  lv: 0, money: 0, rep: 0, day: 0, time: '', chapter: -1,
+  rush: null,
+};
 
+// Order bar cache
+let orderBarCustomerId = -1;
+let orderItemEls = [];
+
+// ============================================================
+// 25. TOAST & AUDIO
+// ============================================================
 let toastTimer = null;
-function toast(msg,dur){
+function toast(msg, dur){
   dom.toast.textContent = msg;
   dom.toast.classList.add('show');
   if(toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>dom.toast.classList.remove('show'),dur||1500);
+  toastTimer = setTimeout(() => dom.toast.classList.remove('show'), dur || 1800);
 }
-
-const timers = new Set();
-function setT(fn,ms){const id=setTimeout(()=>{timers.delete(id);fn();},ms);timers.add(id);return id;}
-function clearAllTimers(){timers.forEach(id=>clearTimeout(id));timers.clear();}
 
 let audioCtx = null;
 let audioSuspendTimer = null;
+
 function getAudio(){
   if(!state.settings.sound) return null;
   if(!audioCtx){
-    try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; }
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ return null; }
   }
-  if(audioCtx.state==='suspended') audioCtx.resume().catch(()=>{});
+  if(audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
   return audioCtx;
 }
-function beep(freq,dur,type){
+
+function beep(freq, dur, type){
   const ctx = getAudio();
   if(!ctx) return;
   try{
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-    osc.type = type||'square';
+    osc.type = type || 'square';
     osc.frequency.value = freq;
-    gain.gain.value = .04;
-    osc.connect(gain); gain.connect(ctx.destination);
+    gain.gain.value = 0.04;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
     osc.start();
-    osc.stop(ctx.currentTime+dur);
+    osc.stop(ctx.currentTime + dur);
     if(audioSuspendTimer) clearTimeout(audioSuspendTimer);
-    audioSuspendTimer = setTimeout(()=>{
-      if(audioCtx && audioCtx.state==='running') audioCtx.suspend().catch(()=>{});
-    },(dur*1000)+200);
+    audioSuspendTimer = setTimeout(() => {
+      if(audioCtx && audioCtx.state === 'running') audioCtx.suspend().catch(() => {});
+    }, (dur * 1000) + 200);
   }catch(e){}
 }
 
-function fmtMoney(n){
-  if(n>=1000000) return (n/1000000).toFixed(1)+'tr';
-  if(n>=1000) return Math.round(n/1000)+'k';
-  return String(n);
+// ============================================================
+// 26. TIMER TRACKER — Clear hết khi ẩn tab
+// ============================================================
+const timers = new Set();
+function setT(fn, ms){
+  const id = setTimeout(() => { timers.delete(id); fn(); }, ms);
+  timers.add(id);
+  return id;
 }
-function fmtTime(min){
-  const h = Math.floor(min/60)%24;
-  const m = Math.floor(min%60);
-  return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+function clearAllTimers(){
+  timers.forEach(id => clearTimeout(id));
+  timers.clear();
 }
-function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
 
+// ============================================================
+// 27. LOG — Chỉ lưu nội bộ, không hiển thị panel
+// ============================================================
 function addLog(msg){
-  state.logs.unshift({d:state.day,t:fmtTime(state.time),msg});
-  if(state.logs.length>40) state.logs.length = 40;
+  // Log chỉ để debug, không hiển thị
+  if(window.__DEBUG__) console.log('[Bảo Minh]', msg);
 }
 
-const ACH = [
-  {id:'first_bake',name:'Chiếc bánh đầu tiên',desc:'Làm 1 bánh cốm',chk:()=>state.records.totalBaked>=1},
-  {id:'bake_10',name:'Thợ bánh',desc:'Làm 10 bánh cốm',chk:()=>state.records.totalBaked>=10},
-  {id:'bake_100',name:'Bậc thầy',desc:'Làm 100 bánh cốm',chk:()=>state.records.totalBaked>=100},
-  {id:'money_1m',name:'Triệu phú',desc:'Đạt 1 triệu',chk:()=>state.money>=1000000},
-  {id:'money_10m',name:'Đại gia',desc:'Đạt 10 triệu',chk:()=>state.money>=10000000},
-  {id:'rep_100',name:'Nổi tiếng',desc:'Đạt 100 danh tiếng',chk:()=>state.rep>=100},
-  {id:'rep_500',name:'Huyền thoại',desc:'Đạt 500 danh tiếng',chk:()=>state.rep>=500},
-  {id:'day_10',name:'Bền bỉ',desc:'Sống sót 10 ngày',chk:()=>state.day>=10},
-  {id:'day_30',name:'Trường tồn',desc:'Hoàn thành 30 ngày',chk:()=>state.day>=30},
-  {id:'staff_all',name:'Ông chủ',desc:'Thuê đủ 4 nhân viên',chk:()=>{
-    const s=state.staff;return s.chiTien.unlocked&&s.chiPhuong.unlocked&&s.anhDuc.unlocked&&s.chiHuyen.unlocked;
-  }},
-  {id:'cus_50',name:'Đông khách',desc:'Phục vụ 50 khách',chk:()=>state.records.totalCustomers>=50},
-  {id:'cus_200',name:'Quá tải',desc:'Phục vụ 200 khách',chk:()=>state.records.totalCustomers>=200},
-];
-function checkAch(){
-  for(let i=0;i<ACH.length;i++){
-    const a = ACH[i];
-    if(!state.achievements[a.id] && a.chk()){
-      state.achievements[a.id]=true;
-      addLog('🏆 '+a.name);
-      toast('🏆 '+a.name);
-      beep(1200,.1,'sine');
-    }
-  }
-}
-
-function addXP(n){
-  state.xp += n;
-  while(state.xp>=CFG.XP_PER_LV && state.lv<CFG.MAX_LV){
-    state.xp -= CFG.XP_PER_LV;
-    state.lv++;
-    addLog('⬆️ Lên cấp '+state.lv);
-    toast('⬆️ Lv '+state.lv);
-    beep(880,.15,'sine');
-    for(let i=CHAPTERS.length-1;i>=0;i--){
-      if(state.lv>=CHAPTERS[i].lvMin && state.chapter!==i){
-        state.chapter=i;
-        addLog('📍 '+CHAPTERS[i].name);
-        toast('📍 '+CHAPTERS[i].name);
-        break;
-      }
-    }
-  }
-  checkAch();
-}
-
-function createCustomer(){
-  const nhan = pick(NHAN_KEYS);
-  const extraCount = randInt(0,3);
-  const extras = [];
-  for(let i=0;i<extraCount;i++) extras.push(pick(PREMADE_KEYS));
-  return {
-    id:++state.customerId,
-    name:pick(CUSTOMER_NAMES),
-    icon:pick(CUSTOMER_ICONS),
-    order:{nhan,extras},
-    wait:CFG.CUSTOMER_WAIT, maxWait:CFG.CUSTOMER_WAIT,
-    done:{banhCom:false,extras:new Array(extraCount).fill(false)},
-    satisfied:false,
-  };
-}
-function spawnCustomer(){
-  let idx = -1;
-  for(let i=0;i<CFG.MAX_TABLES;i++){ if(!state.customers[i]){idx=i;break;} }
-  if(idx===-1) return;
-  const c = createCustomer();
-  state.customers[idx]=c;
-  state.lastSpawnTime=0;
-  renderTable(idx,true);
-  addLog('👤 '+c.name+' đến');
-}
-function removeCustomer(idx){
-  const c = state.customers[idx];
-  if(c) addLog('👋 '+c.name+' rời');
-  state.customers[idx]=null;
-  if(state.selectedTable===idx){
-    state.selectedTable=-1;
-    renderOrderBar();
-  }
-  renderTable(idx,true);
-}
-
-function startBaking(){
-  if(state.baking.active) return;
-  state.baking.active=true;
-  state.baking.step=1;
-  state.baking.progress=0;
-  state.baking.nhan='none';
-  state.baking.locked=false;
-  dom.nhanSelector.classList.remove('show');
-  nhanBtnEls.forEach(b=>b.root.classList.toggle('selected',b.key==='none'));
-  renderSteps(true);
-  addLog('🤲 Nặn bánh');
-  beep(440,.08);
-}
-function advanceBaking(){
-  const b = state.baking;
-  if(b.step===1){
-    b.step=2; b.progress=0;
-    dom.nhanSelector.classList.add('show');
-    renderSteps(true);
-  } else if(b.step===2){
-    b.step=3; b.progress=0;
-    b.locked=true;
-    dom.nhanSelector.classList.remove('show');
-    renderSteps(true);
-  } else if(b.step===3){
-    b.step=4; b.progress=0;
-    b.locked=false;
-    renderSteps(true);
-  }
-}
-function resetBaking(){
-  state.baking={active:false,step:0,progress:0,nhan:'none',locked:false};
-  dom.nhanSelector.classList.remove('show');
-  nhanBtnEls.forEach(b=>b.root.classList.toggle('selected',b.key==='none'));
-  renderSteps(true);
-  toast('🔄 Đã reset');
-}
-function completeBaking(){
-  const b = state.baking;
-  if(!b.active || b.step!==4) return;
-  if(state.selectedTable===-1){ toast('Chọn khách trước!'); beep(200,.15,'sawtooth'); return; }
-  const c = state.customers[state.selectedTable];
-  if(!c || c.satisfied){ toast('Không có khách!'); return; }
-  if(c.order.nhan !== b.nhan){
-    toast('❌ Sai nhân!');
-    beep(200,.15,'sawtooth');
-    addLog('❌ Sai nhân cho '+c.name);
-    resetBaking();
-    return;
-  }
-  c.done.banhCom = true;
-  state.records.totalBaked++;
-  resetBaking();
-  renderTable(state.selectedTable,true);
-  addLog('🎁 Giao bánh cốm cho '+c.name);
-  beep(880,.1,'sine');
-  checkCustomerDone(state.selectedTable);
-  checkAch();
-}
-function checkCustomerDone(idx){
-  const c = state.customers[idx];
-  if(!c || c.satisfied) return;
-  if(!c.done.banhCom) return;
-  for(let i=0;i<c.done.extras.length;i++){
-    if(!c.done.extras[i]) return;
-  }
-  serveCustomer(idx);
-}
-function serveCustomer(idx){
-  const c = state.customers[idx];
-  if(!c || c.satisfied) return;
-  let total = 25000 + NHAN[c.order.nhan].price;
-  for(let i=0;i<c.order.extras.length;i++){
-    if(c.done.extras[i]) total += PREMADE[c.order.extras[i]].price;
-  }
-  let quyt = false;
-  if(Math.random()<CFG.QUYT_CHANCE){
-    const hv = state.staff.chiHuyen;
-    if(hv.active && hv.level>0){
-      const reduce = .2*hv.level;
-      if(Math.random()>=reduce) quyt=true;
-    } else quyt=true;
-  }
-  if(quyt){
-    addLog('💸 '+c.name+' quỵt!');
-    toast('💸 Quỵt!');
-    beep(200,.2,'sawtooth');
-    total = 0;
-  } else {
-    state.money += total;
-    beep(1200,.1,'sine');
-  }
-  let repGain = CFG.BASE_REP + (c.order.nhan!=='none'?1:0) + c.order.extras.length;
-  state.rep += repGain;
-  addXP(10 + repGain*2);
-  state.records.totalCustomers++;
-  c.satisfied = true;
-  addLog('✅ '+c.name+' +'+fmtMoney(total));
-  toast('✅ +'+fmtMoney(total));
-  renderTable(idx,true);
-  renderOrderBar();
-  setT(()=>removeCustomer(idx), 500);
-}
-
-function sellPremade(key){
-  if(state.selectedTable===-1){ toast('Chọn khách!'); beep(200,.1); return; }
-  const c = state.customers[state.selectedTable];
-  if(!c || c.satisfied){ toast('Không có khách!'); return; }
-  let found = -1;
-  for(let i=0;i<c.order.extras.length;i++){
-    if(c.order.extras[i]===key && !c.done.extras[i]){ found=i; break; }
-  }
-  if(found===-1){ toast('Không order món này!'); beep(200,.1); return; }
-  c.done.extras[found]=true;
-  state.money += PREMADE[key].price;
-  beep(1200,.08,'sine');
-  addLog('💰 Bán '+PREMADE[key].name);
-  toast('💰 +'+fmtMoney(PREMADE[key].price));
-  renderOrderBar();
-  renderTable(state.selectedTable,true);
-  checkCustomerDone(state.selectedTable);
-  checkAch();
-}
-
-const STAFF_INFO = [
-  {key:'chiTien',name:'Chị Tiến',desc:'Auto gói',reqLv:2,baseCost:200000},
-  {key:'chiPhuong',name:'Chị Phương',desc:'Auto chọn nhân',reqLv:4,baseCost:250000},
-  {key:'anhDuc',name:'Anh Đức',desc:'Auto giao',reqLv:6,baseCost:300000},
-  {key:'chiHuyen',name:'Chị Huyền',desc:'Giảm 20% quỵt',reqLv:8,baseCost:350000},
-];
-function staffCost(info){
-  const s = state.staff[info.key];
-  if(!s.unlocked) return info.baseCost;
-  return 150000;
-}
-function unlockStaff(key){
-  const info = STAFF_INFO.find(x=>x.key===key);
-  const s = state.staff[key];
-  if(!info) return;
-  if(!s.unlocked && state.lv<info.reqLv){ toast('Cần Lv'+info.reqLv); return; }
-  const cost = staffCost(info);
-  if(state.money<cost){ toast('Không đủ tiền!'); beep(200,.1); return; }
-  state.money -= cost;
-  if(!s.unlocked){
-    s.unlocked=true; s.level=1; s.active=true;
-    addLog('👥 Thuê '+info.name);
-    toast('👥 '+info.name);
-  } else {
-    if(s.level>=5){ toast('Đã max!'); return; }
-    s.level++;
-    addLog('⬆️ '+info.name+' Lv'+s.level);
-    toast('⬆️ Lv'+s.level);
-  }
-  beep(1200,.1,'sine');
-  renderStaffPanel();
-  renderHeader();
-  checkAch();
-}
-function payStaff(){
-  let total = 0;
-  const keys = Object.keys(state.staff);
-  for(let i=0;i<keys.length;i++){
-    const s = state.staff[keys[i]];
-    if(s.active && s.unlocked) total += 50000*s.level;
-  }
-  if(total<=0) return;
-  if(state.money>=total){
-    state.money -= total;
-    addLog('💼 Trả lương -'+fmtMoney(total));
-  } else {
-    for(let i=0;i<keys.length;i++){
-      const s = state.staff[keys[i]];
-      if(s.active && s.unlocked){
-        s.active=false;
-        addLog('❌ '+STAFF_INFO.find(x=>x.key===keys[i]).name+' nghỉ');
-      }
-    }
-    toast('❌ NV nghỉ vì hết lương!');
-  }
-  renderHeader();
-}
-
+// ============================================================
+// 28. RENDER HEADER
+// ============================================================
 function renderHeader(){
-  if(uiCache.lv!==state.lv){ dom.lv.textContent=state.lv; uiCache.lv=state.lv; }
-  if(uiCache.money!==state.money){ dom.money.textContent=fmtMoney(state.money); uiCache.money=state.money; }
-  if(uiCache.rep!==state.rep){ dom.rep.textContent=state.rep; uiCache.rep=state.rep; }
-  if(uiCache.day!==state.day){ dom.day.textContent=state.day; uiCache.day=state.day; }
+  if(uiCache.lv !== state.lv){ dom.lv.textContent = state.lv; uiCache.lv = state.lv; }
+  if(uiCache.money !== state.money){ dom.money.textContent = fmtMoney(state.money); uiCache.money = state.money; }
+  if(uiCache.rep !== state.rep){ dom.rep.textContent = state.rep; uiCache.rep = state.rep; }
+  if(uiCache.day !== state.day){ dom.day.textContent = state.day; uiCache.day = state.day; }
   const t = fmtTime(state.time);
-  if(uiCache.time!==t){ dom.time.textContent=t; uiCache.time=t; }
-  if(uiCache.chapter!==state.chapter){
-    uiCache.chapter=state.chapter;
-    dom.scene.style.background=CHAPTERS[state.chapter].bg;
-  }
+  if(uiCache.time !== t){ dom.time.textContent = t; uiCache.time = t; }
 }
-function renderTable(idx,force){
+
+// ============================================================
+// 29. RENDER TABLES — Khách hàng
+// ============================================================
+function renderTablesRow(){
+  const row = $('#tables');
+  const maxT = getMaxTables();
+
+  // Nếu số bàn thay đổi → rebuild
+  if(row.children.length !== maxT){
+    row.innerHTML = '';
+    tableEls.length = 0;
+    for(let i = 0; i < maxT; i++){
+      const el = document.createElement('div');
+      el.className = 'table';
+      el.dataset.idx = i;
+      el.innerHTML = '<div class="event-icon"></div><div class="khach-icon">💺</div><div class="khach-name">Trống</div><div class="order-badge hidden">0</div><div class="timer-bar"></div>';
+      row.appendChild(el);
+      tableEls.push({
+        root: el,
+        eventIcon: el.querySelector('.event-icon'),
+        icon: el.querySelector('.khach-icon'),
+        name: el.querySelector('.khach-name'),
+        badge: el.querySelector('.order-badge'),
+        timer: el.querySelector('.timer-bar'),
+        idx: i,
+      });
+      el.addEventListener('click', () => onTableClick(i));
+    }
+    // Điều chỉnh grid columns
+    row.style.gridTemplateColumns = `repeat(${maxT}, 1fr)`;
+  }
+
+  for(let i = 0; i < maxT; i++) renderTable(i, true);
+}
+
+function renderTable(idx, force){
   const c = state.customers[idx];
   const el = tableEls[idx];
+  if(!el) return;
+
   if(!c || c.satisfied){
     if(el._empty && !force) return;
-    el.icon.textContent='💺';
-    el.name.textContent='Trống';
+    el.eventIcon.textContent = '';
+    el.icon.textContent = '💺';
+    el.name.textContent = 'Trống';
     el.badge.classList.add('hidden');
-    el.timer.style.transform='scaleX(0)';
-    el.root.classList.remove('active');
-    el._empty=true;
+    el.timer.style.transform = 'scaleX(0)';
+    el.root.className = 'table';
+    el._empty = true;
     return;
   }
-  el._empty=false;
-  if(el.icon.textContent!==c.icon) el.icon.textContent=c.icon;
-  if(el.name.textContent!==c.name) el.name.textContent=c.name;
-  const totalItems = 1 + c.order.extras.length;
-  let doneItems = c.done.banhCom?1:0;
-  for(let i=0;i<c.done.extras.length;i++) if(c.done.extras[i]) doneItems++;
-  const badgeText = doneItems+'/'+totalItems;
-  if(el.badge.textContent!==badgeText) el.badge.textContent=badgeText;
-  el.badge.classList.remove('hidden');
-  const pct = c.wait/c.maxWait;
-  el.timer.style.transform='scaleX('+pct.toFixed(3)+')';
-  el.timer.style.background = pct>.5?'#27ae60':pct>.25?'#f39c12':'#e74c3c';
-  const isSel = state.selectedTable===idx;
-  if(el.root.classList.contains('active')!==isSel){
-    el.root.classList.toggle('active',isSel);
+
+  el._empty = false;
+
+  // Icon event
+  if(c.event){
+    if(el.eventIcon.textContent !== c.event.icon) el.eventIcon.textContent = c.event.icon;
+  } else {
+    el.eventIcon.textContent = '';
   }
+
+  // Icon khách
+  if(el.icon.textContent !== c.icon) el.icon.textContent = c.icon;
+
+  // Tên
+  if(el.name.textContent !== c.name) el.name.textContent = c.name;
+
+  // Badge done/total
+  const needBanh = c.need2Banh ? 2 : 1;
+  const totalItems = needBanh + c.order.extras.length;
+  let doneItems = (c.done.banhComCount || 0);
+  if(c.done.banhCom) doneItems++;
+  for(let i = 0; i < c.done.extras.length; i++) if(c.done.extras[i]) doneItems++;
+
+  const badgeText = doneItems + '/' + totalItems;
+  if(el.badge.textContent !== badgeText) el.badge.textContent = badgeText;
+  el.badge.classList.remove('hidden');
+
+  // Timer bar
+  const pct = Math.max(0, c.wait / c.maxWait);
+  el.timer.style.transform = 'scaleX(' + pct.toFixed(3) + ')';
+  el.timer.style.background = pct > 0.5 ? '#4ade80' : pct > 0.25 ? '#f5d78e' : '#ff6b6b';
+
+  // Class active + event color
+  let cls = 'table has-customer';
+  if(state.selectedTable === idx) cls += ' active';
+  if(c.event) cls += ' event-' + c.event.color;
+  if(el.root.className !== cls) el.root.className = cls;
 }
-function renderAllTables(){
-  for(let i=0;i<CFG.MAX_TABLES;i++) renderTable(i,true);
-}
-let orderBarCustomerId = -1;
-let orderItemEls = [];
-function renderOrderBar(){
-  if(state.selectedTable===-1){
-    if(orderBarCustomerId!==-1){
-      orderBarCustomerId=-1;
-      orderItemEls=[];
-      dom.orderContent.textContent='Chọn khách để xem order';
+
+// ============================================================
+// 30. RENDER ORDER BAR — Diff, chỉ build khi đổi khách
+// ============================================================
+function renderOrderBar(force){
+  if(state.selectedTable === -1){
+    if(orderBarCustomerId !== -1 || force){
+      orderBarCustomerId = -1;
+      orderItemEls = [];
+      dom.orderContent.textContent = 'Chọn khách để xem order';
     }
     return;
   }
+
   const c = state.customers[state.selectedTable];
   if(!c || c.satisfied){
-    if(orderBarCustomerId!==-1){
-      orderBarCustomerId=-1;
-      orderItemEls=[];
-      dom.orderContent.textContent='Khách đã hài lòng';
+    if(orderBarCustomerId !== -1 || force){
+      orderBarCustomerId = -1;
+      orderItemEls = [];
+      dom.orderContent.textContent = 'Khách đã hài lòng';
     }
     return;
   }
-  if(orderBarCustomerId!==c.id){
+
+  // Build mới nếu đổi khách
+  if(orderBarCustomerId !== c.id || force){
     orderBarCustomerId = c.id;
     orderItemEls = [];
-    dom.orderContent.innerHTML='';
+    dom.orderContent.innerHTML = '';
     const frag = document.createDocumentFragment();
+
+    // Bánh cốm — nếu mystery thì ẩn nhân
+    const needBanh = c.need2Banh ? 2 : 1;
     const bc = document.createElement('span');
-    bc.className='order-item';
-    bc.textContent='🍡 Bánh cốm ('+NHAN[c.order.nhan].name+')';
+    bc.className = 'order-item';
+    const nhanName = c.mysteryNhan ? '???' : ITEMS[c.order.nhan].name;
+    bc.textContent = '🍡 Bánh cốm ×' + needBanh + ' (' + nhanName + ')';
     frag.appendChild(bc);
-    orderItemEls.push({el:bc,type:'banhCom',idx:-1});
-    for(let i=0;i<c.order.extras.length;i++){
+    orderItemEls.push({el: bc, type: 'banhCom', idx: -1});
+
+    // Extras
+    for(let i = 0; i < c.order.extras.length; i++){
       const e = c.order.extras[i];
       const sp = document.createElement('span');
-      sp.className='order-item';
-      sp.textContent=PREMADE[e].icon+' '+PREMADE[e].name;
+      sp.className = 'order-item';
+      sp.textContent = ITEMS[e].icon + ' ' + ITEMS[e].name;
       frag.appendChild(sp);
-      orderItemEls.push({el:sp,type:'extra',idx:i});
+      orderItemEls.push({el: sp, type: 'extra', idx: i});
     }
+
     dom.orderContent.appendChild(frag);
   }
-  for(let i=0;i<orderItemEls.length;i++){
+
+  // Update class done
+  for(let i = 0; i < orderItemEls.length; i++){
     const o = orderItemEls[i];
     let done;
-    if(o.type==='banhCom') done = c.done.banhCom;
-    else done = c.done.extras[o.idx];
+    if(o.type === 'banhCom'){
+      const needBanh = c.need2Banh ? 2 : 1;
+      done = (c.done.banhComCount || 0) + (c.done.banhCom ? 1 : 0) >= needBanh;
+    } else {
+      done = c.done.extras[o.idx];
+    }
     const has = o.el.classList.contains('done');
-    if(has!==done) o.el.classList.toggle('done',done);
+    if(has !== done) o.el.classList.toggle('done', done);
   }
 }
+
+// ============================================================
+// 31. RENDER STEPS — 4 bước làm bánh
+// ============================================================
 function renderSteps(force){
   const b = state.baking;
-  for(let i=0;i<stepEls.length;i++){
+  for(let i = 0; i < stepEls.length; i++){
     const s = stepEls[i];
     const step = s.idx;
-    let active,locked;
-    if(!b.active){ active = step===1; locked = step!==1; }
-    else {
-      active = b.step===step;
-      locked = b.step<step || (b.locked && step>2);
+    let active, locked;
+
+    if(!b.active){
+      active = step === 1;
+      locked = step !== 1;
+    } else {
+      active = b.step === step;
+      locked = b.step < step || (b.locked && step > 2);
     }
+
     if(force){
-      s.root.classList.toggle('active',active);
-      s.root.classList.toggle('locked',locked);
+      s.root.classList.toggle('active', active);
+      s.root.classList.toggle('locked', locked);
     }
+
+    // Progress ring
     let ringText = '';
-    if(active && b.progress>0){
-      const total = step===1?3:step===3?1.5:0;
-      if(total>0) ringText = Math.ceil(total-b.progress)+'s';
+    if(active && b.progress > 0){
+      const total = step === 1 ? getBakeTime() : step === 3 ? getPackTime() : 0;
+      if(total > 0){
+        const remain = Math.max(0, total - b.progress);
+        ringText = remain.toFixed(1) + 's';
+      }
     }
-    if(s.ring.textContent!==ringText) s.ring.textContent=ringText;
+    if(s.ring.textContent !== ringText) s.ring.textContent = ringText;
   }
 }
-function renderStaffPanel(){
-  const list = $('#staff-list');
-  let html = '';
-  for(let i=0;i<STAFF_INFO.length;i++){
-    const info = STAFF_INFO[i];
-    const s = state.staff[info.key];
-    const canUnlock = state.lv>=info.reqLv;
-    const cost = staffCost(info);
-    const status = s.unlocked ? (s.active?'✅ Đang làm':'⛔ Nghỉ') : (canUnlock?'🔓 Có thể thuê':'🔒 Lv'+info.reqLv);
-    const btnText = s.unlocked ? (s.level>=5?'MAX':'⬆️ '+fmtMoney(cost)) : '💰 '+fmtMoney(cost);
-    const disabled = (!canUnlock && !s.unlocked) ? 'disabled' : '';
-    html += '<div class="panel-row"><div class="info"><div class="name">'+info.name+(s.unlocked?' Lv'+s.level:'')+'</div><div class="desc">'+info.desc+' · '+status+'</div></div><button class="panel-btn" data-staff="'+info.key+'" '+disabled+'>'+btnText+'</button></div>';
+
+// ============================================================
+// 32. RENDER BAKE ANIM — Hoạt họa cột trái
+// ============================================================
+function renderBakeAnim(force){
+  const b = state.baking;
+  let icon = '🍡';
+  let status = 'Sẵn sàng nặn';
+  let barPct = 0;
+  let timerText = '';
+
+  if(!b.active){
+    icon = '🍡';
+    status = 'Sẵn sàng nặn';
+    barPct = 0;
+  } else if(b.step === 1){
+    icon = '🤲';
+    status = 'Đang nặn...';
+    const total = getBakeTime();
+    barPct = Math.min(1, b.progress / total);
+    timerText = Math.max(0, total - b.progress).toFixed(1) + 's';
+  } else if(b.step === 2){
+    icon = '🫘';
+    status = 'Chọn nhân →';
+    barPct = 1;
+  } else if(b.step === 3){
+    icon = '📦';
+    status = 'Đang gói...';
+    const total = getPackTime();
+    barPct = Math.min(1, b.progress / total);
+    timerText = Math.max(0, total - b.progress).toFixed(1) + 's';
+  } else if(b.step === 4){
+    icon = '🎁';
+    status = 'Bấm GIAO!';
+    barPct = 1;
   }
-  list.innerHTML = html;
-  list.querySelectorAll('[data-staff]').forEach(btn=>{
-    btn.addEventListener('click',()=>unlockStaff(btn.dataset.staff));
+
+  if(force || dom.animIcon.textContent !== icon) dom.animIcon.textContent = icon;
+  if(force || dom.animStatus.textContent !== status) dom.animStatus.textContent = status;
+  dom.animBarFill.style.transform = 'scaleX(' + barPct.toFixed(3) + ')';
+  if(dom.animTimer.textContent !== timerText) dom.animTimer.textContent = timerText;
+}
+
+// ============================================================
+// 33. RENDER NHAN GRID — 4 card nhân
+// ============================================================
+let nhanCardEls = {};
+
+function renderNhanGrid(force){
+  // Build 1 lần
+  if(Object.keys(nhanCardEls).length === 0 || force){
+    dom.nhanGrid.innerHTML = '';
+    nhanCardEls = {};
+
+    NHAN_KEYS.forEach(key => {
+      const item = ITEMS[key];
+      const card = document.createElement('div');
+      card.className = 'nhan-card';
+      card.dataset.nhan = key;
+      card.innerHTML =
+        '<div class="nc-icon">' + item.icon + '</div>' +
+        '<div class="nc-name">' + item.name + '</div>' +
+        '<div class="nc-stock">' + (item.free ? 'Miễn phí' : '×0') + '</div>' +
+        '<button class="nc-btn">DÙNG</button>';
+      dom.nhanGrid.appendChild(card);
+      nhanCardEls[key] = {
+        root: card,
+        stock: card.querySelector('.nc-stock'),
+        btn: card.querySelector('.nc-btn'),
+      };
+      card.addEventListener('click', () => onNhanClick(key));
+    });
+  }
+
+  // Update từng card
+  NHAN_KEYS.forEach(key => {
+    const el = nhanCardEls[key];
+    if(!el) return;
+    const item = ITEMS[key];
+
+    // Stock
+    if(item.free){
+      if(el.stock.textContent !== 'Miễn phí') el.stock.textContent = 'Miễn phí';
+      el.stock.className = 'nc-stock';
+      el.root.classList.remove('empty');
+    } else {
+      const qty = state.inventory[key] || 0;
+      const txt = '×' + qty;
+      if(el.stock.textContent !== txt) el.stock.textContent = txt;
+      let cls = 'nc-stock';
+      if(qty === 0) cls += ' zero';
+      else if(qty <= 3) cls += ' low';
+      if(el.stock.className !== cls) el.stock.className = cls;
+      el.root.classList.toggle('empty', qty === 0);
+    }
+
+    // Selected
+    const isSelected = state.baking.step === 2 && state.baking.nhan === key;
+    el.root.classList.toggle('selected', isSelected);
   });
 }
-function renderLogPanel(){
-  let html = '';
-  for(let i=0;i<state.logs.length;i++){
-    const l = state.logs[i];
-    html += '<div style="font-size:10px;padding:3px 0;border-bottom:1px solid #3d2b1a"><span style="color:#c49a3c">[N'+l.d+' '+l.t+']</span> '+l.msg+'</div>';
-  }
-  $('#log-list').innerHTML = html || '<div style="font-size:11px;color:#7a5a3a;text-align:center;padding:20px">Chưa có nhật ký</div>';
-}
-function renderAchPanel(){
-  let html = '';
-  for(let i=0;i<ACH.length;i++){
-    const a = ACH[i];
-    const un = state.achievements[a.id];
-    html += '<div class="panel-row" style="opacity:'+(un?1:.5)+'"><div class="info"><div class="name">'+(un?'✅ ':'⬜ ')+a.name+'</div><div class="desc">'+a.desc+'</div></div></div>';
-  }
-  $('#ach-list').innerHTML = html;
-}
-function renderRecordPanel(){
-  $('#record-list').innerHTML =
-    '<div class="panel-row"><div class="info"><div class="name">📅 Ngày cao nhất</div></div><span class="gold">'+state.records.maxDay+'</span></div>'+
-    '<div class="panel-row"><div class="info"><div class="name">💰 Tiền cao nhất</div></div><span class="gold">'+fmtMoney(state.records.maxMoney)+'</span></div>'+
-    '<div class="panel-row"><div class="info"><div class="name">⭐ Danh tiếng</div></div><span class="gold">'+state.records.maxRep+'</span></div>'+
-    '<div class="panel-row"><div class="info"><div class="name">👥 Tổng khách</div></div><span class="gold">'+state.records.totalCustomers+'</span></div>'+
-    '<div class="panel-row"><div class="info"><div class="name">🍡 Tổng bánh cốm</div></div><span class="gold">'+state.records.totalBaked+'</span></div>';
-}
 
-let loopTimer = null;
-let lastTickTime = 0;
-function gameTick(){
-  if(!state.running){ loopTimer=null; return; }
-  const now = performance.now();
-  let dt = (now-lastTickTime)/1000;
-  lastTickTime = now;
-  if(dt>1) dt=1;
-  if(dt<0) dt=0;
+// ============================================================
+// 34. RENDER TRAY — 6 món mua sẵn
+// ============================================================
+let trayEls = {};
 
-  state.time += dt*2;
+function renderTray(force){
+  if(Object.keys(trayEls).length === 0 || force){
+    dom.tray.innerHTML = '';
+    trayEls = {};
 
-  if(state.time >= CFG.DAY_END*60){ endDay(); if(!state.running){loopTimer=null;return;} }
-
-  state.lastSpawnTime += dt;
-  const spawnInt = CFG.SPAWN_MIN + Math.random()*(CFG.SPAWN_MAX-CFG.SPAWN_MIN);
-  if(state.lastSpawnTime>=spawnInt){
-    let activeCount=0;
-    for(let i=0;i<CFG.MAX_TABLES;i++){
-      const c = state.customers[i];
-      if(c && !c.satisfied) activeCount++;
-    }
-    if(activeCount<CFG.MAX_TABLES) spawnCustomer();
-    state.lastSpawnTime=0;
+    MON_SAN_KEYS.forEach(key => {
+      const item = ITEMS[key];
+      const el = document.createElement('button');
+      el.className = 'tray-item';
+      el.dataset.item = key;
+      el.innerHTML =
+        '<div class="tray-stock">×0</div>' +
+        '<div class="tray-icon">' + item.icon + '</div>' +
+        '<div class="tray-name">' + item.name + '</div>' +
+        '<div class="tray-price">' + fmtMoney(item.price) + '</div>';
+      dom.tray.appendChild(el);
+      trayEls[key] = {
+        root: el,
+        stock: el.querySelector('.tray-stock'),
+      };
+      el.addEventListener('click', () => sellPremade(key));
+    });
   }
 
-  for(let i=0;i<CFG.MAX_TABLES;i++){
-    const c = state.customers[i];
-    if(!c || c.satisfied) continue;
-    c.wait -= dt;
-    if(c.wait<=0){
-      addLog('😡 '+c.name+' bỏ đi');
-      removeCustomer(i);
-      continue;
-    }
-    renderTable(i,false);
-  }
-
-  state.lastSisterTime += dt;
-  if(state.lastSisterTime>=CFG.SISTER_INTERVAL){
-    state.lastSisterTime=0;
-    if(Math.random()<CFG.SISTER_CHANCE){
-      const amount = randInt(CFG.SISTER_MIN,CFG.SISTER_MAX);
-      state.money += amount;
-      addLog('🎁 Chị Dung cho '+fmtMoney(amount));
-      toast('🎁 Chị Dung +'+fmtMoney(amount));
-      beep(1200,.1,'sine');
-    }
-  }
-
-  const b = state.baking;
-  if(b.active && !b.locked){
-    let speed = 1;
-    if(b.step===3 && state.staff.chiTien.active) speed = 1.5;
-    b.progress += dt*speed;
-    const need = b.step===1?3:b.step===3?1.5:0;
-    if(need>0 && b.progress>=need) advanceBaking();
-    else renderSteps(false);
-  }
-
-  if(state.staff.chiPhuong.active && b.active && b.step===2 && state.selectedTable!==-1){
-    const c = state.customers[state.selectedTable];
-    if(c && !c.satisfied && b.nhan!==c.order.nhan){
-      b.nhan = c.order.nhan;
-      nhanBtnEls.forEach(x=>x.root.classList.toggle('selected',x.key===b.nhan));
-    }
-  }
-  if(state.staff.anhDuc.active && b.active && b.step===4 && state.selectedTable!==-1){
-    completeBaking();
-  }
-
-  if(state.day>state.records.maxDay) state.records.maxDay=state.day;
-  if(state.money>state.records.maxMoney) state.records.maxMoney=state.money;
-  if(state.rep>state.records.maxRep) state.records.maxRep=state.rep;
-
-  renderHeader();
-
-  state.saveAcc += dt;
-  if(state.saveAcc>10){ state.saveAcc=0; saveGame(); }
-
-  loopTimer = setTimeout(gameTick, CFG.TICK_MS);
+  MON_SAN_KEYS.forEach(key => {
+    const el = trayEls[key];
+    if(!el) return;
+    const qty = state.inventory[key] || 0;
+    const txt = '×' + qty;
+    if(el.stock.textContent !== txt) el.stock.textContent = txt;
+    el.root.classList.toggle('empty', qty === 0);
+  });
 }
 
-function startLoop(){
-  if(loopTimer) return;
-  state.running=true;
-  lastTickTime = performance.now();
-  loopTimer = setTimeout(gameTick, CFG.TICK_MS);
-}
-function stopLoop(){
-  state.running=false;
-  if(loopTimer){ clearTimeout(loopTimer); loopTimer=null; }
-  clearAllTimers();
-}
+// ============================================================
+// 35. RENDER RUSH INDICATOR
+// ============================================================
+function renderRushIndicator(){
+  const ev = state.currentEvent;
+  if(uiCache.rush === ev) return;
+  uiCache.rush = ev;
 
-function endDay(){
-  addLog('🌙 Kết thúc ngày '+state.day);
-  payStaff();
-  state.day++;
-  state.time = CFG.DAY_START*60;
-  state.customers=[null,null,null,null];
-  state.selectedTable=-1;
-  state.baking={active:false,step:0,progress:0,nhan:'none',locked:false};
-  dom.nhanSelector.classList.remove('show');
-  renderAllTables();
-  renderOrderBar();
-  renderSteps(true);
-  if(state.day>CFG.MAX_DAYS){
-    state.running=false;
-    addLog('🎉 HOÀN THÀNH!');
-    toast('🎉 CHIẾN THẮNG!',3000);
+  if(!ev){
+    dom.rushIndicator.classList.remove('show');
     return;
   }
-  addLog('☀️ Ngày '+state.day);
-  toast('☀️ Ngày '+state.day);
-  renderHeader();
-  saveGame();
+  dom.rushIndicator.classList.add('show');
+  if(ev === 'rush'){
+    dom.rushIndicator.textContent = '🔥 Giờ cao điểm';
+    dom.rushIndicator.className = 'show rush';
+  } else {
+    dom.rushIndicator.textContent = '😴 Giờ vắng';
+    dom.rushIndicator.className = 'show slow';
+  }
 }
 
-function saveGame(){
-  try{
-    const s = {
-      lv:state.lv,xp:state.xp,money:state.money,rep:state.rep,
-      day:state.day,time:state.time,chapter:state.chapter,
-      staff:state.staff,achievements:state.achievements,
-      records:state.records,settings:state.settings,
-      lastSisterTime:state.lastSisterTime,lastSpawnTime:state.lastSpawnTime,
-      customerId:state.customerId,
-    };
-    localStorage.setItem('baominh_v1',JSON.stringify(s));
-  }catch(e){}
+// ============================================================
+// 36. RENDER PANELS
+// ============================================================
+function renderStaffPanel(){
+  // Tab 1: Nhân viên
+  const tab1 = $('#staff-tab1');
+  let html = '';
+  STAFF_INFO.forEach(info => {
+    const s = state.staff[info.key];
+    const canUnlock = state.lv >= info.reqLv;
+    const cost = getStaffCost(info);
+    const status = s.unlocked ? (s.active ? '✅ Đang làm' : '⛔ Nghỉ') : (canUnlock ? '🔓 Có thể thuê' : '🔒 Cần Lv' + info.reqLv);
+    const btnText = s.unlocked
+      ? (s.level >= info.maxLevel ? 'MAX' : '⬆️ ' + fmtMoney(cost))
+      : '💰 ' + fmtMoney(cost);
+    const disabled = (!canUnlock && !s.unlocked) || (s.unlocked && s.level >= info.maxLevel);
+    html += '<div class="panel-row">' +
+      '<div class="info">' +
+        '<div class="name">' + info.icon + ' ' + info.name + (s.unlocked ? ' Lv' + s.level : '') + '</div>' +
+        '<div class="desc">' + info.desc + ' · ' + status + '</div>' +
+      '</div>' +
+      '<button class="panel-btn' + (s.unlocked ? ' upgrade' : '') + '" data-staff="' + info.key + '"' + (disabled ? ' disabled' : '') + '>' + btnText + '</button>' +
+    '</div>';
+  });
+  tab1.innerHTML = html;
+  tab1.querySelectorAll('[data-staff]').forEach(btn => {
+    btn.addEventListener('click', () => unlockStaff(btn.dataset.staff));
+  });
+
+  // Tab 2: Nâng cấp
+  const tab2 = $('#staff-tab2');
+  let html2 = '';
+  UPGRADES.forEach(upg => {
+    const lv = state.upgrades[upg.id];
+    const cost = getUpgradeCost(upg);
+    const maxed = lv >= upg.maxLevel;
+    const btnText = maxed ? 'MAX' : '⬆️ ' + fmtMoney(cost);
+    html2 += '<div class="panel-row">' +
+      '<div class="info">' +
+        '<div class="name">' + upg.icon + ' ' + upg.name + '</div>' +
+        '<div class="desc">Lv ' + lv + '/' + upg.maxLevel + ' · ' + upg.desc + '</div>' +
+      '</div>' +
+      '<button class="panel-btn upgrade" data-upg="' + upg.id + '"' + (maxed ? ' disabled' : '') + '>' + btnText + '</button>' +
+    '</div>';
+  });
+  tab2.innerHTML = html2;
+  tab2.querySelectorAll('[data-upg]').forEach(btn => {
+    btn.addEventListener('click', () => buyUpgrade(btn.dataset.upg));
+  });
 }
-function loadGame(){
-  try{
-    const raw = localStorage.getItem('baominh_v1');
-    if(!raw) return false;
-    const s = JSON.parse(raw);
-    Object.assign(state,s);
-    state.customers=[null,null,null,null];
-    state.selectedTable=-1;
-    state.baking={active:false,step:0,progress:0,nhan:'none',locked:false};
-    state.running=false;
-    state.ended=false;
-    if(!state.records) state.records={maxDay:1,maxMoney:0,maxRep:0,totalCustomers:0,totalBaked:0};
-    if(!state.achievements) state.achievements={};
-    if(!state.settings) state.settings={sound:true};
-    return true;
-  }catch(e){ return false; }
+
+function renderUpgradePanel(){
+  // Reuse renderStaffPanel để update tab 2
+  renderStaffPanel();
 }
-function resetGame(){
-  try{ localStorage.removeItem('baominh_v1'); }catch(e){}
-  state.lv=1;state.xp=0;state.money=100000;state.rep=0;
-  state.day=1;state.time=CFG.DAY_START*60;state.chapter=0;
-  state.customers=[null,null,null,null];state.selectedTable=-1;
-  state.baking={active:false,step:0,progress:0,nhan:'none',locked:false};
-  state.staff={
-    chiTien:{unlocked:false,level:0,active:false},
-    chiPhuong:{unlocked:false,level:0,active:false},
-    anhDuc:{unlocked:false,level:0,active:false},
-    chiHuyen:{unlocked:false,level:0,active:false},
-  };
-  state.logs=[];state.achievements={};
-  state.records={maxDay:1,maxMoney:0,maxRep:0,totalCustomers:0,totalBaked:0};
-  state.lastSisterTime=0;state.lastSpawnTime=0;state.customerId=0;
-  state.running=false;state.ended=false;
-  uiCache.lv=0;uiCache.money=0;uiCache.rep=0;uiCache.day=0;uiCache.time='';uiCache.chapter=-1;
-  orderBarCustomerId=-1;orderItemEls=[];
-  renderHeader();renderAllTables();renderOrderBar();renderSteps(true);
-  addLog('🔄 Ván mới');
+
+function renderShopPanel(){
+  // Tab 1: Mua hàng
+  const tab1 = $('#shop-tab1');
+  let html = '';
+
+  html += '<div class="section-title">🫘 Nhân</div>';
+  ['nhan_dau_xanh', 'nhan_sau_rieng', 'nhan_xa_xiu'].forEach(key => {
+    const item = ITEMS[key];
+    const qty = state.inventory[key] || 0;
+    html += '<div class="panel-row">' +
+      '<div class="info">' +
+        '<div class="name">' + item.icon + ' ' + item.name + '</div>' +
+        '<div class="desc">Kho: ×' + qty + ' · Mua ' + item.buyQty + ' cái</div>' +
+      '</div>' +
+      '<button class="panel-btn buy" data-buy="' + key + '">' + fmtMoney(item.buyPrice) + '</button>' +
+    '</div>';
+  });
+
+  html += '<div class="section-title">🌾 Nguyên liệu</div>';
+  const bot = ITEMS.bot_nep;
+  html += '<div class="panel-row">' +
+    '<div class="info">' +
+      '<div class="name">' + bot.icon + ' ' + bot.name + '</div>' +
+      '<div class="desc">Kho: ×' + (state.inventory.bot_nep || 0) + ' · Mua ' + bot.buyQty + ' cái</div>' +
+    '</div>' +
+    '<button class="panel-btn buy" data-buy="bot_nep">' + fmtMoney(bot.buyPrice) + '</button>' +
+  '</div>';
+
+  html += '<div class="section-title">🍬 Món mua sẵn</div>';
+  MON_SAN_KEYS.forEach(key => {
+    const item = ITEMS[key];
+    const qty = state.inventory[key] || 0;
+    html += '<div class="panel-row">' +
+      '<div class="info">' +
+        '<div class="name">' + item.icon + ' ' + item.name + '</div>' +
+        '<div class="desc">Kho: ×' + qty + ' · Mua ' + item.buyQty + ' cái</div>' +
+      '</div>' +
+      '<button class="panel-btn buy" data-buy="' + key + '">' + fmtMoney(item.buyPrice) + '</button>' +
+    '</div>';
+  });
+
+  tab1.innerHTML = html;
+  tab1.querySelectorAll('[data-buy]').forEach(btn => {
+    btn.addEventListener('click', () => buyItem(btn.dataset.buy));
+  });
+
+  // Tab 2: Kho
+  const tab2 = $('#shop-tab2');
+  let html2 = '';
+
+  html2 += '<div class="section-title">🫘 Nhân</div>';
+  ['nhan_dau_xanh', 'nhan_sau_rieng', 'nhan_xa_xiu'].forEach(key => {
+    const item = ITEMS[key];
+    html2 += '<div class="panel-row"><div class="info"><div class="name">' + item.icon + ' ' + item.name + '</div></div><b style="color:#4a9e3f;font-size:14px">×' + (state.inventory[key] || 0) + '</b></div>';
+  });
+
+  html2 += '<div class="section-title">🌾 Nguyên liệu</div>';
+  html2 += '<div class="panel-row"><div class="info"><div class="name">' + ITEMS.bot_nep.icon + ' ' + ITEMS.bot_nep.name + '</div></div><b style="color:#4a9e3f;font-size:14px">×' + (state.inventory.bot_nep || 0) + '</b></div>';
+
+  html2 += '<div class="section-title">🍬 Món mua sẵn</div>';
+  MON_SAN_KEYS.forEach(key => {
+    const item = ITEMS[key];
+    html2 += '<div class="panel-row"><div class="info"><div class="name">' + item.icon + ' ' + item.name + '</div></div><b style="color:#4a9e3f;font-size:14px">×' + (state.inventory[key] || 0) + '</b></div>';
+  });
+
+  tab2.innerHTML = html2;
+}
+
+function renderQuestPanel(){
+  // Nhiệm vụ hôm nay
+  const today = $('#quest-today');
+  let html = '';
+  state.quests.forEach((q, idx) => {
+    const pct = Math.min(1, q.progress / q.target);
+    const done = q.done;
+    const claimed = q.claimed;
+    html += '<div class="quest-row' + (done ? ' done' : '') + '">' +
+      '<div class="q-head">' +
+        '<div class="q-name">' + (done ? '✅ ' : '⬜ ') + q.name + '</div>' +
+        '<div class="q-progress">' + q.progress + '/' + q.target + '</div>' +
+      '</div>' +
+      '<div class="q-reward">Thưởng: ' + fmtMoney(q.reward.money) + ' + ' + q.reward.xp + ' XP</div>' +
+      '<div class="q-bar"><div class="q-bar-fill" style="transform:scaleX(' + pct + ')"></div></div>' +
+      (done && !claimed
+        ? '<button class="panel-btn upgrade" style="margin-top:6px;width:100%" data-claim="' + idx + '">🎁 NHẬN THƯỞNG</button>'
+        : claimed
+          ? '<div style="font-size:10px;color:#4a9e3f;text-align:center;margin-top:4px">✅ Đã nhận</div>'
+          : ''
+      ) +
+    '</div>';
+  });
+  today.innerHTML = html || '<div style="text-align:center;color:#4a9e3f;padding:20px">Chưa có nhiệm vụ</div>';
+  today.querySelectorAll('[data-claim]').forEach(btn => {
+    btn.addEventListener('click', () => claimQuest(parseInt(btn.dataset.claim)));
+  });
+
+  // Thành tích
+  const ach = $('#quest-ach');
+  let html2 = '';
+  ACHIEVEMENTS.forEach(a => {
+    const un = state.achievements[a.id];
+    html2 += '<div class="ach-row' + (un ? ' unlocked' : '') + '">' +
+      '<div class="ach-icon">' + (un ? '✅' : a.icon) + '</div>' +
+      '<div>' +
+        '<div class="ach-name">' + a.name + '</div>' +
+        '<div class="ach-desc">' + a.desc + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  ach.innerHTML = html2;
+}
+
+// ============================================================
+// 37. EVENT HANDLERS
+// ============================================================
+function onTableClick(idx){
+  const c = state.customers[idx];
+  if(c && !c.satisfied){
+    state.selectedTable = idx;
+    renderTablesRow();
+    renderOrderBar(true);
+  }
+}
+
+function onStepClick(step){
+  const b = state.baking;
+
+  if(!b.active){
+    if(step === 1) startBaking();
+    return;
+  }
+
+  if(b.locked && step > 2) return;
+
+  if(step === 4 && b.step === 4){
+    completeBaking();
+    return;
+  }
+
+  if(step === b.step + 1){
+    advanceBaking();
+  }
+}
+
+function onNhanClick(key){
+  if(state.baking.step !== 2) return;
+  if(!ITEMS[key].free && (state.inventory[key] || 0) <= 0){
+    toast('❌ Hết nhân này!');
+    beep(200, 0.1);
+    return;
+  }
+  state.baking.nhan = key;
+  renderNhanGrid();
+  beep(600, 0.06, 'sine');
 }
 
 function showConfirm(title, msg){
-  return new Promise((resolve)=>{
+  return new Promise(resolve => {
     const ov = $('#modal-confirm');
     $('#modal-title').textContent = title;
     $('#modal-msg').textContent = msg;
     ov.classList.add('open');
-    const cleanup = (val)=>{
+    const cleanup = (val) => {
       ov.classList.remove('open');
       $('#modal-ok').removeEventListener('click', onOk);
       $('#modal-cancel').removeEventListener('click', onCancel);
       resolve(val);
     };
-    const onOk = ()=>cleanup(true);
-    const onCancel = ()=>cleanup(false);
+    const onOk = () => cleanup(true);
+    const onCancel = () => cleanup(false);
     $('#modal-ok').addEventListener('click', onOk);
     $('#modal-cancel').addEventListener('click', onCancel);
   });
 }
 
 function setupEvents(){
-  for(let i=0;i<tableEls.length;i++){
-    const el = tableEls[i];
-    el.root.addEventListener('click',()=>{
-      const c = state.customers[el.idx];
-      if(c && !c.satisfied){
-        state.selectedTable = el.idx;
-        renderAllTables();
-        renderOrderBar();
-      }
-    });
-  }
-  for(let i=0;i<stepEls.length;i++){
-    const s = stepEls[i];
-    s.root.addEventListener('click',()=>{
-      const step = s.idx;
-      if(!state.baking.active){
-        if(step===1) startBaking();
-        return;
-      }
-      const b = state.baking;
-      if(b.locked && step>2) return;
-      if(step===4 && b.step===4){ completeBaking(); return; }
-      if(step===b.step+1){
-        if(b.step===1) advanceBaking();
-        else if(b.step===2) advanceBaking();
-        else if(b.step===3) advanceBaking();
-      }
-    });
-  }
-  for(let i=0;i<nhanBtnEls.length;i++){
-    const b = nhanBtnEls[i];
-    b.root.addEventListener('click',()=>{
-      if(state.baking.step!==2) return;
-      state.baking.nhan = b.key;
-      nhanBtnEls.forEach(x=>x.root.classList.toggle('selected',x.key===b.key));
-    });
-  }
-  dom.resetBake.addEventListener('click',()=>{
+  // Step click
+  stepEls.forEach(s => {
+    s.root.addEventListener('click', () => onStepClick(s.idx));
+  });
+
+  // Reset bánh
+  dom.resetBake.addEventListener('click', () => {
     if(state.baking.active) resetBaking();
   });
-  for(let i=0;i<trayBtnEls.length;i++){
-    const t = trayBtnEls[i];
-    t.root.addEventListener('click',()=>sellPremade(t.key));
-  }
-  document.querySelectorAll('.nav-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
+
+  // Nav buttons
+  $$('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       const name = btn.dataset.panel;
-      if(name==='staff') renderStaffPanel();
-      else if(name==='log') renderLogPanel();
-      else if(name==='ach') renderAchPanel();
-      else if(name==='record') renderRecordPanel();
-      else if(name==='settings') $('#btn-sound').textContent = state.settings.sound?'BẬT':'TẮT';
-      $('#panel-'+name).classList.add('open');
+      if(name === 'staff') renderStaffPanel();
+      else if(name === 'shop') renderShopPanel();
+      else if(name === 'quest') renderQuestPanel();
+      else if(name === 'settings'){
+        $('#btn-sound').textContent = state.settings.sound ? 'BẬT' : 'TẮT';
+      }
+      $('#panel-' + name).classList.add('open');
       getAudio();
     });
   });
-  document.querySelectorAll('.panel-close').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      $('#panel-'+btn.dataset.close).classList.remove('open');
+
+  // Panel close
+  $$('.panel-close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $('#panel-' + btn.dataset.close).classList.remove('open');
     });
   });
-  $('#btn-save').addEventListener('click',()=>{ saveGame(); toast('💾 Đã lưu'); });
-  $('#btn-sound').addEventListener('click',()=>{
+
+  // Panel tabs
+  $$('.panel-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      // Tìm parent panel
+      const panel = tab.closest('.panel');
+      panel.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      // Ẩn/hiện tab content
+      panel.querySelectorAll('[id$="-tab1"], [id$="-tab2"]').forEach(c => c.classList.add('hidden'));
+      $('#' + target).classList.remove('hidden');
+    });
+  });
+
+  // Save
+  $('#btn-save').addEventListener('click', () => {
+    saveGame();
+    toast('💾 Đã lưu');
+  });
+
+  // Sound toggle
+  $('#btn-sound').addEventListener('click', () => {
     state.settings.sound = !state.settings.sound;
-    $('#btn-sound').textContent = state.settings.sound?'BẬT':'TẮT';
+    $('#btn-sound').textContent = state.settings.sound ? 'BẬT' : 'TẮT';
     if(!state.settings.sound && audioCtx){
-      audioCtx.suspend().catch(()=>{});
+      audioCtx.suspend().catch(() => {});
     }
   });
-  $('#btn-reset').addEventListener('click', async ()=>{
-    const ok = await showConfirm('Xóa save','Toàn bộ tiến trình sẽ bị xóa. Tiếp tục?');
+
+  // Reset
+  $('#btn-reset').addEventListener('click', async () => {
+    const ok = await showConfirm('Xóa save', 'Toàn bộ tiến trình sẽ bị xóa. Tiếp tục?');
     if(ok){
       resetGame();
       $('#panel-settings').classList.remove('open');
+      // Reset UI cache
+      uiCache.lv = 0; uiCache.money = 0; uiCache.rep = 0;
+      uiCache.day = 0; uiCache.time = ''; uiCache.chapter = -1;
+      uiCache.rush = null;
+      orderBarCustomerId = -1;
+      renderAll();
+      startLoop();
     }
   });
 }
 
-document.addEventListener('visibilitychange',()=>{
+// ============================================================
+// 38. RENDER ALL — Gọi 1 lần khi init
+// ============================================================
+function renderAll(){
+  renderHeader();
+  renderTablesRow();
+  renderOrderBar(true);
+  renderSteps(true);
+  renderBakeAnim(true);
+  renderNhanGrid(true);
+  renderTray(true);
+  renderRushIndicator();
+}
+
+// ============================================================
+// 39. GAME LOOP — 5fps với setTimeout
+// ============================================================
+let loopTimer = null;
+let lastTickTime = 0;
+
+function gameTick(){
+  if(!state.running){ loopTimer = null; return; }
+
+  const now = performance.now();
+  let dt = (now - lastTickTime) / 1000;
+  lastTickTime = now;
+  if(dt > 1) dt = 1;
+  if(dt < 0) dt = 0;
+
+  // Thời gian
+  state.time += dt * CFG.TIME_SPEED;
+
+  // Hết ngày
+  if(state.time >= CFG.DAY_END * 60){
+    endDay();
+    if(!state.running){ loopTimer = null; return; }
+    // Reset UI sau khi sang ngày
+    renderAll();
+  }
+
+  // Spawn khách
+  state.lastSpawnTime += dt;
+  const spawnInt = getSpawnInterval();
+  if(state.lastSpawnTime >= spawnInt){
+    const activeCount = state.customers.filter(c => c && !c.satisfied).length;
+    const maxT = getMaxTables();
+    if(activeCount < maxT){
+      spawnCustomer();
+    }
+    state.lastSpawnTime = 0;
+  }
+
+  // Update khách (timer)
+  const maxT = getMaxTables();
+  for(let i = 0; i < maxT; i++){
+    const c = state.customers[i];
+    if(!c || c.satisfied) continue;
+    c.wait -= dt;
+    if(c.wait <= 0){
+      addLog('😡 ' + c.name + ' bỏ đi');
+      removeCustomer(i);
+      continue;
+    }
+    renderTable(i, false);
+  }
+
+  // Chị Dung
+  state.lastSisterTime += dt;
+  if(state.lastSisterTime >= CFG.SISTER_INTERVAL){
+    state.lastSisterTime = 0;
+    if(Math.random() < CFG.SISTER_CHANCE){
+      const amount = randInt(CFG.SISTER_MIN, CFG.SISTER_MAX);
+      state.money += amount;
+      toast('🎁 Chị Dung ghé +' + fmtMoney(amount), 2500);
+      beep(1400, 0.15, 'sine');
+    }
+  }
+
+  // Baking progress
+  const b = state.baking;
+  if(b.active && !b.locked){
+    let speed = 1;
+    if(b.step === 3 && state.staff.chiTien.active) speed = 1.5;
+    b.progress += dt * speed;
+
+    const need = b.step === 1 ? getBakeTime()
+               : b.step === 3 ? getPackTime()
+               : 0;
+
+    if(need > 0 && b.progress >= need){
+      advanceBaking();
+    } else {
+      renderSteps(false);
+      renderBakeAnim(false);
+    }
+  }
+
+  // Auto nhân viên
+  // ChiPhuong: auto chọn nhân
+  if(state.staff.chiPhuong.active && b.active && b.step === 2 && state.selectedTable !== -1){
+    const c = state.customers[state.selectedTable];
+    if(c && !c.satisfied && b.nhan !== c.order.nhan){
+      // Chỉ auto chọn nếu có sẵn nhân trong kho
+      if(ITEMS[c.order.nhan].free || (state.inventory[c.order.nhan] || 0) > 0){
+        b.nhan = c.order.nhan;
+        renderNhanGrid();
+      }
+    }
+  }
+
+  // AnhDuc: auto giao
+  if(state.staff.anhDuc.active && b.active && b.step === 4 && state.selectedTable !== -1){
+    completeBaking();
+  }
+
+  // Random event
+  checkRandomEvent(dt);
+  renderRushIndicator();
+
+  // Records
+  if(state.day > state.records.maxDay) state.records.maxDay = state.day;
+  if(state.money > state.records.maxMoney) state.records.maxMoney = state.money;
+  if(state.rep > state.records.maxRep) state.records.maxRep = state.rep;
+
+  // Header
+  renderHeader();
+
+  // Save
+  state.saveAcc += dt;
+  if(state.saveAcc > CFG.SAVE_INTERVAL){
+    state.saveAcc = 0;
+    saveGame();
+  }
+
+  loopTimer = setTimeout(gameTick, CFG.TICK_MS);
+}
+
+function startLoop(){
+  if(loopTimer) return;
+  state.running = true;
+  lastTickTime = performance.now();
+  loopTimer = setTimeout(gameTick, CFG.TICK_MS);
+}
+
+function stopLoop(){
+  state.running = false;
+  if(loopTimer){ clearTimeout(loopTimer); loopTimer = null; }
+  clearAllTimers();
+}
+
+// ============================================================
+// 40. VISIBILITY
+// ============================================================
+document.addEventListener('visibilitychange', () => {
   if(document.hidden){
     stopLoop();
-    if(audioCtx && audioCtx.state==='running') audioCtx.suspend().catch(()=>{});
+    if(audioCtx && audioCtx.state === 'running') audioCtx.suspend().catch(() => {});
     saveGame();
   } else {
     startLoop();
   }
 });
-window.addEventListener('pagehide',()=>{
+
+window.addEventListener('pagehide', () => {
   stopLoop();
-  if(audioCtx && audioCtx.state==='running') audioCtx.suspend().catch(()=>{});
+  if(audioCtx && audioCtx.state === 'running') audioCtx.suspend().catch(() => {});
   saveGame();
 });
 
+// ============================================================
+// 41. SERVICE WORKER
+// ============================================================
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
   });
 }
 
+// ============================================================
+// 42. INIT
+// ============================================================
 function init(){
-  loadGame();
+  const loaded = loadGame();
+
+  if(!loaded){
+    // Ván mới: cho sẵn 5 bột nếp
+    state.inventory.bot_nep = 5;
+    generateDailyQuests();
+  }
+
   setupEvents();
-  renderHeader();
-  renderAllTables();
-  renderOrderBar();
-  renderSteps(true);
-  addLog('🏪 Tiệm Bánh Kẹo Bảo Minh mở cửa');
+  renderAll();
   startLoop();
-  const initAudioOnce = ()=>{
+
+  // Init audio khi user tương tác
+  const initAudioOnce = () => {
     getAudio();
-    document.removeEventListener('touchstart',initAudioOnce);
-    document.removeEventListener('click',initAudioOnce);
+    document.removeEventListener('touchstart', initAudioOnce);
+    document.removeEventListener('click', initAudioOnce);
   };
-  document.addEventListener('touchstart',initAudioOnce,{once:true,passive:true});
-  document.addEventListener('click',initAudioOnce,{once:true});
+  document.addEventListener('touchstart', initAudioOnce, {once: true, passive: true});
+  document.addEventListener('click', initAudioOnce, {once: true});
 }
+
 init();
 
 })();
